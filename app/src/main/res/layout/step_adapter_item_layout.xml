@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:orientation="vertical"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:gravity="center_horizontal"
+    android:background="?android:colorBackground"
+    android:foreground="?attr/selectableItemBackground"
+    android:paddingTop="20dp"
+    android:paddingRight="10dp"
+    android:paddingLeft="10dp">
+
+    <TextView
+        android:id="@+id/stepNumber"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        tools:text="Step 1"
+        android:textColor="@color/secondary_text"/>
+
+    <TextView
+        android:id="@+id/shortDesc"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="10dp"
+        android:textColor="@color/primary_text"
+        tools:text="Press the crust into baking form."/>
+
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="0.5dp"
+        android:layout_marginTop="20dp"
+        android:background="@color/divider" />
+
+</LinearLayout>
