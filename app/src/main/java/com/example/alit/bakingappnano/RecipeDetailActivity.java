@@ -47,12 +47,19 @@ public class RecipeDetailActivity extends AppCompatActivity implements MasterDet
 
     private static final String STEP_FRAGMENT = "stepFragment";
 
-    @BindView(R.id.mainLayout) FrameLayout mainLayout;
+    public static final String EXTRA_IS_TABLET = "isTablet";
+
+//    @BindView(R.id.mainLayout) FrameLayout mainLayout;
 
     @BindView(R.id.setWidgetFAB) FloatingActionButton setWidgetFAB;
 
+    @BindView(R.id.stepContainer) FrameLayout stepContainer;
+
 //    @BindView(R.id.stepDetailViewPager) ViewPager stepDetailViewPager;
 //    StepDetailPagerAdapter pagerAdapter;
+
+    private boolean twoPane;
+    private boolean isTablet;
 
     private long recipeID;
     private String recipeName;
@@ -93,6 +100,9 @@ public class RecipeDetailActivity extends AppCompatActivity implements MasterDet
         Intent intent = getIntent();
 
         Bundle bundle = intent.getExtras();
+
+        if (findViewById(R.id.mainLayout) != null) twoPane = true;
+        if (findViewById(R.id.checkTablet) != null) isTablet = true;
 
         if (savedInstanceState != null) {
             Log.d(TAG, "onSavedInstaceState not null");
@@ -189,6 +199,7 @@ public class RecipeDetailActivity extends AppCompatActivity implements MasterDet
         bundle.putString(StepsTable.LONG_DESC, step.longDesc);
         bundle.putString(StepsTable.VIDEO_PATH, step.videoPath);
         bundle.putString(StepsTable.THUMBNAIL_PATH, step.thumbnailPath);
+        bundle.putBoolean(EXTRA_IS_TABLET, isTablet);
 
         StepDetailFragment fragment = new StepDetailFragment();
         fragment.setArguments(bundle);
@@ -227,6 +238,7 @@ public class RecipeDetailActivity extends AppCompatActivity implements MasterDet
             bundle.putString(StepsTable.LONG_DESC, step.longDesc);
             bundle.putString(StepsTable.VIDEO_PATH, step.videoPath);
             bundle.putString(StepsTable.THUMBNAIL_PATH, step.thumbnailPath);
+            bundle.putBoolean(EXTRA_IS_TABLET, isTablet);
 
             StepDetailFragment fragment = new StepDetailFragment();
             fragment.setArguments(bundle);
@@ -369,7 +381,7 @@ public class RecipeDetailActivity extends AppCompatActivity implements MasterDet
 
         if (showLastStep) {
             showLastStep = false;
-            mainLayout.post(new Runnable() {
+            stepContainer.post(new Runnable() {
                 @Override
                 public void run() {
                     Step step = steps.get(lastStepPos);
@@ -381,6 +393,7 @@ public class RecipeDetailActivity extends AppCompatActivity implements MasterDet
                     bundle.putString(StepsTable.LONG_DESC, step.longDesc);
                     bundle.putString(StepsTable.VIDEO_PATH, step.videoPath);
                     bundle.putString(StepsTable.THUMBNAIL_PATH, step.thumbnailPath);
+                    bundle.putBoolean(EXTRA_IS_TABLET, isTablet);
 
                     StepDetailFragment fragment = new StepDetailFragment();
                     fragment.setArguments(bundle);

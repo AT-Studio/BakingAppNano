@@ -66,6 +66,8 @@ public class MainActivity extends AppCompatActivity
 
     private final String TAG = "TESTSTUFF";
 
+    private boolean isTablet;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -74,6 +76,8 @@ public class MainActivity extends AppCompatActivity
         setSupportActionBar(toolbar);
 
         ButterKnife.bind(this);
+
+        if (findViewById(R.id.mainLayout) != null) isTablet = true;
 
         DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
         ActionBarDrawerToggle toggle = new ActionBarDrawerToggle(
@@ -134,17 +138,31 @@ public class MainActivity extends AppCompatActivity
 
     public int getNumColumn() {
 
-        int orientation = getScreenOrientation();
-
-        switch (orientation) {
-            case Surface.ROTATION_0:
-                return 1;
-            case Surface.ROTATION_90:
-                return 2;
-            case Surface.ROTATION_180:
-                return 1;
-            default:
-                return 1;
+        if (isTablet) {
+            int orientation = getScreenOrientation();
+            switch (orientation) {
+                case Surface.ROTATION_0:
+                    return 2;
+                case Surface.ROTATION_90:
+                    return 3;
+                case Surface.ROTATION_180:
+                    return 2;
+                default:
+                    return 2;
+            }
+        }
+        else {
+            int orientation = getScreenOrientation();
+            switch (orientation) {
+                case Surface.ROTATION_0:
+                    return 1;
+                case Surface.ROTATION_90:
+                    return 2;
+                case Surface.ROTATION_180:
+                    return 1;
+                default:
+                    return 1;
+            }
         }
 
     }

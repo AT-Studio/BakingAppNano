@@ -1,12 +1,12 @@
 package com.example.alit.bakingappnano;
 
-import android.os.Build;
-import android.support.v7.app.ActionBar;
 import android.content.Context;
 import android.net.Uri;
+import android.os.Build;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
+import android.support.v7.app.ActionBar;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.CardView;
 import android.util.DisplayMetrics;
@@ -74,6 +74,8 @@ public class StepDetailFragment extends Fragment {
 
     boolean isLand;
 
+    boolean isTablet;
+
     @Override
     public void onAttach(Context context) {
         super.onAttach(context);
@@ -101,6 +103,7 @@ public class StepDetailFragment extends Fragment {
         longDesc = bundle.getString(StepsTable.LONG_DESC);
         videoPath = bundle.getString(StepsTable.VIDEO_PATH);
         thumbnailPath = bundle.getString(StepsTable.THUMBNAIL_PATH);
+        isTablet = bundle.getBoolean(RecipeDetailActivity.EXTRA_IS_TABLET);
 
         if (videoPath != null && !videoPath.isEmpty() || thumbnailPath != null && !thumbnailPath.isEmpty()) {
             hasVideo = true;
@@ -116,21 +119,26 @@ public class StepDetailFragment extends Fragment {
 
         int orientation = getScreenOrientation(context);
 
-        switch (orientation) {
-            case Surface.ROTATION_0:
-                isLand = false;
-                unbinder = ButterKnife.bind(this, rootView);
-                break;
-            case Surface.ROTATION_90:
-                enableFullScreen();
-                isLand = true;
-                simpleExoPlayerView = (SimpleExoPlayerView) rootView.findViewById(R.id.simpleExoPlayer);
-                break;
-            case Surface.ROTATION_180:
-                isLand = false;
-                unbinder = ButterKnife.bind(this, rootView);
-                break;
-            default:
+        if (isTablet) {
+            unbinder = ButterKnife.bind(this, rootView);
+        }
+        else {
+            switch (orientation) {
+                case Surface.ROTATION_0:
+                    isLand = false;
+                    unbinder = ButterKnife.bind(this, rootView);
+                    break;
+                case Surface.ROTATION_90:
+                    enableFullScreen();
+                    isLand = true;
+                    simpleExoPlayerView = (SimpleExoPlayerView) rootView.findViewById(R.id.simpleExoPlayer);
+                    break;
+                case Surface.ROTATION_180:
+                    isLand = false;
+                    unbinder = ButterKnife.bind(this, rootView);
+                    break;
+                default:
+            }
         }
 
         if (!hasVideo) simpleExoPlayerView.setVisibility(View.GONE);
