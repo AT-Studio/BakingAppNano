@@ -9,18 +9,38 @@
     tools:context="com.example.alit.bakingappnano.RecipeDetailActivity"
     tools:showIn="@layout/activity_recipe_detail">
 
-    <fragment
-        android:id="@+id/masterDetailFragment"
+    <FrameLayout
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:name="com.example.alit.bakingappnano.MasterDetailFragment"/>
+        android:layout_height="match_parent">
 
-    <android.support.v4.view.ViewPager
-        android:id="@+id/stepDetailViewPager"
+        <fragment
+            android:id="@+id/masterDetailFragment"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:name="com.example.alit.bakingappnano.MasterDetailFragment"/>
+
+        <android.support.design.widget.FloatingActionButton
+            android:id="@+id/setWidgetFAB"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="bottom|end"
+            android:layout_margin="18dp"
+            android:src="@drawable/widget_list_icon_24dp"
+            app:backgroundTint="@color/colorAccent"/>
+
+    </FrameLayout>
+
+    <FrameLayout
+        android:id="@+id/stepContainer"
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:visibility="gone">
+        android:layout_height="match_parent" />
 
-    </android.support.v4.view.ViewPager>
+    <!--<android.support.v4.view.ViewPager-->
+        <!--android:id="@+id/stepDetailViewPager"-->
+        <!--android:layout_width="match_parent"-->
+        <!--android:layout_height="match_parent"-->
+        <!--android:visibility="gone">-->
+
+    <!--</android.support.v4.view.ViewPager>-->
 
 </FrameLayout>

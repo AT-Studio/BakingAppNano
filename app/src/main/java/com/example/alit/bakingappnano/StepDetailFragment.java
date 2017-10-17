@@ -15,6 +15,7 @@ import android.view.Surface;
 import android.view.View;
 import android.view.ViewGroup;
 import android.view.WindowManager;
+import android.widget.FrameLayout;
 import android.widget.TextView;
 
 import com.example.alit.bakingappnano.recipeProvider.StepsTable;
@@ -239,14 +240,30 @@ public class StepDetailFragment extends Fragment {
 //            simpleExoPlayer.setVideoListener(new SimpleExoPlayer.VideoListener() {
 //                @Override
 //                public void onVideoSizeChanged(int width, int height, int unappliedRotationDegrees, float pixelWidthHeightRatio) {
-//                    Timber.d("onVideoSizeChanged height: " + getDb(height));
 //                }
 //
 //                @Override
 //                public void onRenderedFirstFrame() {
-//                    Timber.d("simpleExoPlayerHeight: " + getDb(simpleExoPlayerView.getPlayer().getVideoFormat().height));
 //                }
 //            });
+            simpleExoPlayer.addVideoListener(new SimpleExoPlayer.VideoListener() {
+                @Override
+                public void onVideoSizeChanged(int width, int height, int unappliedRotationDegrees, float pixelWidthHeightRatio) {
+                    Timber.d("onVideoSizeChanged height: " + getDb(height) + " width: " + getDb(width) + " ratio: " + pixelWidthHeightRatio);
+                    float heightToWidth = (float) height / width;
+                    Timber.d("onvideo ratio: " + heightToWidth);
+                    FrameLayout.LayoutParams params = (FrameLayout.LayoutParams) simpleExoPlayerView.getLayoutParams();
+                    Timber.d("onvideo paramsHeight: " + simpleExoPlayerView.getHeight() + " paramsWidth: " + simpleExoPlayerView.getWidth());
+                    params.height = (int) (simpleExoPlayerView.getWidth() * heightToWidth);
+                    Timber.d("onvideo paramsHeightAfter: " + params.height);
+                    simpleExoPlayerView.setLayoutParams(params);
+                }
+
+                @Override
+                public void onRenderedFirstFrame() {
+                    Timber.d("simpleExoPlayerHeight: " + getDb(simpleExoPlayerView.getPlayer().getVideoFormat().height));
+                }
+            });
             simpleExoPlayer.prepare(mediaSource);
             simpleExoPlayer.setPlayWhenReady(false);
 

@@ -1,0 +1,71 @@
+<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+    <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+        android:id="@+id/widgetMainLayout"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        android:layout_margin="8dp"
+        android:background="@drawable/rounder_background"
+        xmlns:tools="http://schemas.android.com/tools">
+
+        <TextView
+            android:id="@+id/appwidget_text"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_margin="8dp"
+            android:contentDescription="@string/appwidget_text"
+            android:text="Baking App Widget"
+            android:textColor="@color/colorPrimary"
+            android:textSize="24sp"
+            android:textStyle="italic" />
+
+        <!--<ImageView-->
+        <!--android:layout_width="match_parent"-->
+        <!--android:layout_height="2dp"-->
+        <!--android:background="@drawable/line_shadow"-->
+        <!--android:rotation="180"/>-->
+
+        <ListView
+            android:id="@+id/ingredientsListView"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:background="@drawable/rounded_bottom"/>
+
+        <!--<RelativeLayout-->
+        <!--android:layout_width="match_parent"-->
+        <!--android:layout_height="match_parent"-->
+        <!--android:background="@color/card_background">-->
+
+        <!--<TextView-->
+        <!--android:id="@+id/appwidget_text"-->
+        <!--android:layout_width="wrap_content"-->
+        <!--android:layout_height="wrap_content"-->
+        <!--android:layout_margin="8dp"-->
+        <!--android:contentDescription="@string/appwidget_text"-->
+        <!--tools:text="Brownies"-->
+        <!--android:textColor="@color/colorPrimary"-->
+        <!--android:textSize="24sp"-->
+        <!--android:textStyle="italic" />-->
+
+        <!--<View-->
+        <!--android:layout_width="match_parent"-->
+        <!--android:layout_height="2dp"-->
+        <!--android:background="@drawable/line_shadow"-->
+        <!--android:rotation="180"-->
+        <!--android:layout_below="@id/appwidget_text"/>-->
+
+        <!--<ListView-->
+        <!--android:id="@+id/ingredientsListView"-->
+        <!--android:layout_width="match_parent"-->
+        <!--android:layout_height="wrap_content"-->
+        <!--android:layout_below="@id/appwidget_text"/>-->
+
+        <!--</RelativeLayout>-->
+
+    </LinearLayout>
+
+</FrameLayout>

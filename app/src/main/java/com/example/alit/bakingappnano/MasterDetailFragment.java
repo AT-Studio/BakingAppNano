@@ -53,6 +53,8 @@ public class MasterDetailFragment extends Fragment implements LoaderManager.Load
 
     Unbinder unbinder;
 
+    public MasterDetailFragment() {}
+
     @Override
     public void onAttach(Context context) {
         super.onAttach(context);
@@ -77,20 +79,23 @@ public class MasterDetailFragment extends Fragment implements LoaderManager.Load
 //        setRetainInstance(true);
 
 //        this.ingredientsLayoutManager = new LinearLayoutManager(context);
-        this.ingredientsLayoutManager = new LinearLayoutManager(context) {
+//        this.ingredientsLayoutManager = new LinearLayoutManager(context) {
+//
+//            @Override
+//            public boolean canScrollVertically() {
+//                return false;
+//            }
+//        };
+//        this.stepsLayoutManager = new LinearLayoutManager(context) {
+//
+//            @Override
+//            public boolean canScrollVertically() {
+//                return false;
+//            }
+//        };
 
-            @Override
-            public boolean canScrollVertically() {
-                return false;
-            }
-        };
-        this.stepsLayoutManager = new LinearLayoutManager(context) {
-
-            @Override
-            public boolean canScrollVertically() {
-                return false;
-            }
-        };
+        ingredientsLayoutManager = new LinearLayoutManager(context);
+        stepsLayoutManager = new LinearLayoutManager(context);
 
     }
 
@@ -101,6 +106,9 @@ public class MasterDetailFragment extends Fragment implements LoaderManager.Load
         View rootView = inflater.inflate(R.layout.master_detail_fragment_layout, container, false);
 
         unbinder = ButterKnife.bind(this, rootView);
+
+        ingredientsRecyclerView.setNestedScrollingEnabled(false);
+        stepsRecyclerView.setNestedScrollingEnabled(false);
 
         return rootView;
     }
@@ -225,7 +233,9 @@ public class MasterDetailFragment extends Fragment implements LoaderManager.Load
 
     @Override
     public void onDestroyView() {
-        super.onDestroyView();
         unbinder.unbind();
+//        FragmentManager fm = ((AppCompatActivity) context).getSupportFragmentManager();
+//        fm.beginTransaction().remove(this).commitAllowingStateLoss();
+        super.onDestroyView();
     }
 }
