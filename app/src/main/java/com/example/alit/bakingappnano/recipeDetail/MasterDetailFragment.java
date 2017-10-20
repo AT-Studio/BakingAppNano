@@ -1,4 +1,4 @@
-package com.example.alit.bakingappnano;
+package com.example.alit.bakingappnano.recipeDetail;
 
 import android.content.Context;
 import android.database.Cursor;
@@ -15,6 +15,9 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
+import com.example.alit.bakingappnano.R;
+import com.example.alit.bakingappnano.adapters.IngredientRecyclerViewAdapter;
+import com.example.alit.bakingappnano.adapters.StepRecyclerViewAdapter;
 import com.example.alit.bakingappnano.myDatastructures.Ingredient;
 import com.example.alit.bakingappnano.recipeProvider.IngredientsTable;
 import com.example.alit.bakingappnano.recipeProvider.RecipesProvider;
@@ -25,7 +28,6 @@ import java.util.ArrayList;
 import butterknife.BindView;
 import butterknife.ButterKnife;
 import butterknife.Unbinder;
-import timber.log.Timber;
 
 /**
  * Created by AliT on 10/10/17.
@@ -37,36 +39,36 @@ public class MasterDetailFragment extends Fragment implements LoaderManager.Load
     private static final int INGREDIENTS_LOADER = 1;
     private static final int STEPS_DESC_LOADER = 2;
 
-    @BindView(R.id.ingredientsRecyclerView) RecyclerView ingredientsRecyclerView;
-    LinearLayoutManager ingredientsLayoutManager;
-    IngredientRecyclerViewAdapter ingredientsAdapter;
+    @BindView(R.id.ingredientsRecyclerView)
+    RecyclerView ingredientsRecyclerView;
+    private LinearLayoutManager ingredientsLayoutManager;
+    private IngredientRecyclerViewAdapter ingredientsAdapter;
 
-    @BindView(R.id.stepsRecyclerView) RecyclerView stepsRecyclerView;
-    LinearLayoutManager stepsLayoutManager;
-    StepRecyclerViewAdapter stepsAdapter;
+    @BindView(R.id.stepsRecyclerView)
+    RecyclerView stepsRecyclerView;
+    private LinearLayoutManager stepsLayoutManager;
+    public StepRecyclerViewAdapter stepsAdapter;
 
-    Context context;
+    private Context context;
 
-    MasterDetailClickListener clickListener;
+    private MasterDetailClickListener clickListener;
 
-    long recipeID;
+    private long recipeID;
 
-    Unbinder unbinder;
+    private Unbinder unbinder;
 
-    public MasterDetailFragment() {}
+    public MasterDetailFragment() {
+    }
 
     @Override
     public void onAttach(Context context) {
         super.onAttach(context);
 
-        Timber.d("called onAttach");
-
         this.context = context;
 
         try {
             clickListener = (MasterDetailClickListener) context;
-        }
-        catch (ClassCastException e) {
+        } catch (ClassCastException e) {
             throw new ClassCastException(context.toString() + " must implement MasterDetailClickListener");
         }
 
@@ -75,24 +77,6 @@ public class MasterDetailFragment extends Fragment implements LoaderManager.Load
     @Override
     public void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-
-//        setRetainInstance(true);
-
-//        this.ingredientsLayoutManager = new LinearLayoutManager(context);
-//        this.ingredientsLayoutManager = new LinearLayoutManager(context) {
-//
-//            @Override
-//            public boolean canScrollVertically() {
-//                return false;
-//            }
-//        };
-//        this.stepsLayoutManager = new LinearLayoutManager(context) {
-//
-//            @Override
-//            public boolean canScrollVertically() {
-//                return false;
-//            }
-//        };
 
         ingredientsLayoutManager = new LinearLayoutManager(context);
         stepsLayoutManager = new LinearLayoutManager(context);
@@ -117,11 +101,7 @@ public class MasterDetailFragment extends Fragment implements LoaderManager.Load
     public void onActivityCreated(@Nullable Bundle savedInstanceState) {
         super.onActivityCreated(savedInstanceState);
 
-        Timber.d("Called onActivityCreated");
-
         recipeID = clickListener.getRecipeId();
-
-        Timber.d("RecipeID: " + recipeID);
 
         LoaderManager loaderManager = ((AppCompatActivity) clickListener).getSupportLoaderManager();
 
@@ -166,21 +146,15 @@ public class MasterDetailFragment extends Fragment implements LoaderManager.Load
     @Override
     public void onLoadFinished(Loader<Cursor> loader, Cursor data) {
 
-//        Timber.d("load finished");
-
         if (loader.getId() == INGREDIENTS_LOADER) {
 
             ArrayList<Ingredient> ingredients = new ArrayList<>();
 
             while (data.moveToNext()) {
 
-//                Timber.d("moving through data");
-
                 String ingredient = data.getString(data.getColumnIndex(IngredientsTable.INGREDIENT));
                 int quantity = data.getInt(data.getColumnIndex(IngredientsTable.QUANTITY));
                 String measure = data.getString(data.getColumnIndex(IngredientsTable.MEASURE));
-
-//                Timber.d(ingredient);
 
                 ingredients.add(new Ingredient(quantity, measure, ingredient));
 
@@ -190,24 +164,15 @@ public class MasterDetailFragment extends Fragment implements LoaderManager.Load
                 ingredientsAdapter = new IngredientRecyclerViewAdapter(ingredients);
                 ingredientsRecyclerView.setLayoutManager(ingredientsLayoutManager);
                 ingredientsRecyclerView.setAdapter(ingredientsAdapter);
-            }
-            else ingredientsAdapter.update(ingredients);
+            } else ingredientsAdapter.update(ingredients);
 
-        }
-        else {
+        } else {
 
             ArrayList<String> steps = new ArrayList<>();
 
             while (data.moveToNext()) {
 
                 String shortDesc = data.getString(data.getColumnIndex(StepsTable.SHORT_DESC));
-//                String longDesc = data.getString(data.getColumnIndex(StepsTable.LONG_DESC));
-//                String videoPath = data.getString(data.getColumnIndex(StepsTable.VIDEO_PATH));
-//                String thumbnailPath = data.getString(data.getColumnIndex(StepsTable.THUMBNAIL_PATH));
-
-//                steps.add(new Step(shortDesc, longDesc, videoPath, thumbnailPath));
-
-//                Timber.d(shortDesc);
 
                 steps.add(shortDesc);
 
@@ -217,8 +182,7 @@ public class MasterDetailFragment extends Fragment implements LoaderManager.Load
                 stepsAdapter = new StepRecyclerViewAdapter(steps, this);
                 stepsRecyclerView.setLayoutManager(stepsLayoutManager);
                 stepsRecyclerView.setAdapter(stepsAdapter);
-            }
-            else stepsAdapter.update(steps);
+            } else stepsAdapter.update(steps);
 
         }
 
@@ -234,8 +198,6 @@ public class MasterDetailFragment extends Fragment implements LoaderManager.Load
     @Override
     public void onDestroyView() {
         unbinder.unbind();
-//        FragmentManager fm = ((AppCompatActivity) context).getSupportFragmentManager();
-//        fm.beginTransaction().remove(this).commitAllowingStateLoss();
         super.onDestroyView();
     }
 }

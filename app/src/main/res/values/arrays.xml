@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    
+    <array name="sync_pref_entries">
+        <item>@string/settings_sync_1_hour_entry</item>
+        <item>@string/settings_sync_6_hours_entry</item>
+        <item>@string/settings_sync_24_hours_entry</item>
+    </array>
+
+    <array name="sync_pref_values">
+        <item>@string/settings_sync_1_hour_value</item>
+        <item>@string/settings_sync_6_hours_value</item>
+        <item>@string/settings_sync_24_hours_value</item>
+    </array>
+    
+</resources>

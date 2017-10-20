@@ -1,10 +1,12 @@
-package com.example.alit.bakingappnano;
+package com.example.alit.bakingappnano.adapters;
 
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
+
+import com.example.alit.bakingappnano.R;
 
 import java.util.ArrayList;
 
@@ -17,9 +19,9 @@ import butterknife.ButterKnife;
 
 public class StepRecyclerViewAdapter extends RecyclerView.Adapter<StepRecyclerViewAdapter.StepViewHolder> {
 
-    ArrayList<String> steps;
+    private ArrayList<String> steps;
 
-    StepItemClickListener stepItemClickListener;
+    private StepItemClickListener stepItemClickListener;
 
     public StepRecyclerViewAdapter(ArrayList<String> steps, StepItemClickListener stepItemClickListener) {
 
@@ -64,9 +66,11 @@ public class StepRecyclerViewAdapter extends RecyclerView.Adapter<StepRecyclerVi
 
     public class StepViewHolder extends RecyclerView.ViewHolder {
 
-        @BindView(R.id.stepNumber) TextView stepNumber;
+        @BindView(R.id.stepNumber)
+        TextView stepNumber;
 
-        @BindView(R.id.shortDesc) TextView shortDesc;
+        @BindView(R.id.shortDesc)
+        TextView shortDesc;
 
         public StepViewHolder(View itemView) {
 

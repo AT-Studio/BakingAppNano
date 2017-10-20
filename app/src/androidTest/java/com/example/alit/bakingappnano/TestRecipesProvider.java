@@ -255,7 +255,7 @@ public class TestRecipesProvider {
 
         Intent intent = new Intent(tarContext, RecipeService.class);
 
-        ServiceUtils.scheduleRecipeJob(tarContext);
+        ServiceUtils.scheduleRecipeJob(tarContext, 24);
 
 //        IBinder iBinder = mServiceRule.bindService(intent);
         mServiceRule.startService(intent);

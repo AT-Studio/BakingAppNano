@@ -30,7 +30,7 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:adjustViewBounds="true"
-                    android:src="@drawable/brownie"
+                    android:src="@drawable/cupcake"
                     android:visibility="visible" />
 
                 <TextView
@@ -38,7 +38,7 @@
                     android:layout_width="match_parent"
                     android:layout_height="150dp"
                     android:gravity="center"
-                    android:text="No Image"
+                    android:text="@string/main_no_image"
                     android:textColor="@color/divider"
                     android:textSize="14sp" />
 

@@ -15,14 +15,26 @@ import static net.simonvt.schematic.annotation.DataType.Type.TEXT;
 
 public interface IngredientsTable {
 
-    @DataType(INTEGER) @PrimaryKey @AutoIncrement String _ID = "_id";
+    @DataType(INTEGER)
+    @PrimaryKey
+    @AutoIncrement
+    String _ID = "_id";
 
-    @DataType(INTEGER) @References(table = RecipesDatabase.RECIPES, column = RecipesTable._ID) @NotNull String RECIPE_ID = "recipeId";
+    @DataType(INTEGER)
+    @References(table = RecipesDatabase.RECIPES, column = RecipesTable._ID)
+    @NotNull
+    String RECIPE_ID = "recipeId";
 
-    @DataType(INTEGER) @NotNull String QUANTITY = "quantity";
+    @DataType(INTEGER)
+    @NotNull
+    String QUANTITY = "quantity";
 
-    @DataType(TEXT) @NotNull String MEASURE = "measure";
+    @DataType(TEXT)
+    @NotNull
+    String MEASURE = "measure";
 
-    @DataType(TEXT) @NotNull String INGREDIENT = "ingredient";
+    @DataType(TEXT)
+    @NotNull
+    String INGREDIENT = "ingredient";
 
 }

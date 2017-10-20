@@ -1,4 +1,4 @@
-package com.example.alit.bakingappnano;
+package com.example.alit.bakingappnano.recipeDetail;
 
 import android.content.Context;
 import android.net.Uri;
@@ -9,7 +9,6 @@ import android.support.v4.app.Fragment;
 import android.support.v7.app.ActionBar;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.CardView;
-import android.util.DisplayMetrics;
 import android.view.LayoutInflater;
 import android.view.Surface;
 import android.view.View;
@@ -18,6 +17,7 @@ import android.view.WindowManager;
 import android.widget.FrameLayout;
 import android.widget.TextView;
 
+import com.example.alit.bakingappnano.R;
 import com.example.alit.bakingappnano.recipeProvider.StepsTable;
 import com.google.android.exoplayer2.DefaultLoadControl;
 import com.google.android.exoplayer2.ExoPlayerFactory;
@@ -35,7 +35,6 @@ import com.google.android.exoplayer2.util.Util;
 import butterknife.BindView;
 import butterknife.ButterKnife;
 import butterknife.Unbinder;
-import timber.log.Timber;
 
 /**
  * Created by AliT on 10/10/17.
@@ -43,50 +42,49 @@ import timber.log.Timber;
 
 public class StepDetailFragment extends Fragment {
 
-    @BindView(R.id.stepNumText) TextView stepNumText;
-    @BindView(R.id.simpleExoPlayer) SimpleExoPlayerView simpleExoPlayerView;
-    SimpleExoPlayer simpleExoPlayer;
-    @BindView(R.id.longDescText) TextView longDescText;
+    @BindView(R.id.stepNumText)
+    TextView stepNumText;
+    @BindView(R.id.simpleExoPlayer)
+    SimpleExoPlayerView simpleExoPlayerView;
+    private SimpleExoPlayer simpleExoPlayer;
+    @BindView(R.id.longDescText)
+    TextView longDescText;
 
-    @BindView(R.id.backButton) CardView backButton;
-    @BindView(R.id.nextButton) CardView nextButton;
+    @BindView(R.id.backButton)
+    CardView backButton;
+    @BindView(R.id.nextButton)
+    CardView nextButton;
 
-    View rootView;
+    private View rootView;
 
-    StepDetailClickListener clickListener;
+    private StepDetailClickListener clickListener;
 
-    Context context;
+    private Context context;
 
-    int stepNum;
-    boolean isLastStep;
-    String shortDesc;
-    String longDesc;
-    String videoPath;
-    String thumbnailPath;
+    private int stepNum;
+    private boolean isLastStep;
+    private String shortDesc;
+    private String longDesc;
+    private String videoPath;
+    private String thumbnailPath;
 
-    Unbinder unbinder;
+    private Unbinder unbinder;
 
-    boolean hasVideo;
+    private boolean hasVideo;
 
-    boolean allowVideoLoading;
+    private boolean isLand;
 
-    DisplayMetrics displayMetrics;
-
-    boolean isLand;
-
-    boolean isTablet;
+    private boolean isTablet;
 
     @Override
     public void onAttach(Context context) {
         super.onAttach(context);
 
         this.context = context;
-        this.displayMetrics = context.getResources().getDisplayMetrics();
 
         try {
             clickListener = (StepDetailClickListener) context;
-        }
-        catch (ClassCastException e) {
+        } catch (ClassCastException e) {
             throw new ClassCastException(context.toString() + " must implement StepDetailClickListener");
         }
 
@@ -121,8 +119,7 @@ public class StepDetailFragment extends Fragment {
 
         if (isTablet) {
             unbinder = ButterKnife.bind(this, rootView);
-        }
-        else {
+        } else {
             switch (orientation) {
                 case Surface.ROTATION_0:
                     isLand = false;
@@ -137,13 +134,15 @@ public class StepDetailFragment extends Fragment {
                     isLand = false;
                     unbinder = ButterKnife.bind(this, rootView);
                     break;
+                case Surface.ROTATION_270:
+                    enableFullScreen();
+                    isLand = true;
+                    simpleExoPlayerView = (SimpleExoPlayerView) rootView.findViewById(R.id.simpleExoPlayer);
                 default:
             }
         }
 
         if (!hasVideo) simpleExoPlayerView.setVisibility(View.GONE);
-
-        Timber.d("binding page: " + stepNum);
 
         return rootView;
     }
@@ -152,8 +151,6 @@ public class StepDetailFragment extends Fragment {
     public void onActivityCreated(@Nullable Bundle savedInstanceState) {
         super.onActivityCreated(savedInstanceState);
 
-//        stepNumText.setText("Step " + stepNum);
-
         if (!isLand) {
 
             stepNumText.setText(shortDesc);
@@ -161,13 +158,11 @@ public class StepDetailFragment extends Fragment {
 
             if (isLastStep) {
                 nextButton.setVisibility(View.INVISIBLE);
-//            nextButton.setEnabled(false);
             }
 
             nextButton.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View view) {
-//                simpleExoPlayerView.setVisibility(View.GONE);
                     clickListener.stepDetailClicked(true, stepNum - 1);
                 }
             });
@@ -175,124 +170,56 @@ public class StepDetailFragment extends Fragment {
             backButton.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View view) {
-//                simpleExoPlayerView.setVisibility(View.GONE);
                     clickListener.stepDetailClicked(false, stepNum - 1);
                 }
             });
 
         }
 
-        Timber.d("onactivitycreated done: " + stepNum);
-//        if (allowVideoLoading) initializeExoPlayer(false);
         if (hasVideo) initializeExoPlayer();
-
-//        enableFullScreen(true);
 
     }
 
-    public int getScreenOrientation(Context context){
+    public int getScreenOrientation(Context context) {
         return ((WindowManager) context.getSystemService(Context.WINDOW_SERVICE)).getDefaultDisplay().getRotation();
     }
 
-//    public void setAllowVideoLoading() {
-//        allowVideoLoading = true;
-//        if (simpleExoPlayerView != null) {
-//            Timber.d("simplePlayerView was not null");
-//            initializeExoPlayer(false);
-//        }
-//        else {
-//            Timber.d("simplePlayerView was null " + stepNum);
-//            simpleExoPlayerView = (SimpleExoPlayerView) rootView.findViewById(R.id.simpleExoPlayer);
-//            initializeExoPlayer();
-//        }
-//        if (simpleExoPlayerView != null) {
-//            simpleExoPlayerView.setVisibility(View.VISIBLE);
-//            initializeExoPlayer(true);
-//        } else {
-//            Timber.d("exoplayerview was null");
-//            simpleExoPlayerView = (SimpleExoPlayerView) rootView.findViewById(R.id.simpleExoPlayer);
-//            if (simpleExoPlayerView == null) Timber.d("exoplayerview still null");
-//            else {
-//                simpleExoPlayerView.setVisibility(View.VISIBLE);
-//                initializeExoPlayer(true);
-//            }
-//        }
-//    }
-
     public void initializeExoPlayer() {
 
-        Timber.d("initializing exoplayer for page: " + stepNum);
-
         if (simpleExoPlayer == null) {
-
-            Timber.d("exoplayer was null");
 
             TrackSelector selector = new DefaultTrackSelector();
             LoadControl loadControl = new DefaultLoadControl();
             simpleExoPlayer = ExoPlayerFactory.newSimpleInstance(context, selector, loadControl);
             simpleExoPlayerView.setPlayer(simpleExoPlayer);
-            String userAgent = Util.getUserAgent(context, "BakingAppNano");
+            String userAgent = Util.getUserAgent(context, getResources().getString(R.string.app_name));
             MediaSource mediaSource = null;
             if (videoPath != null && !videoPath.isEmpty()) {
                 mediaSource = new ExtractorMediaSource(Uri.parse(videoPath), new DefaultDataSourceFactory(context, userAgent),
                         new DefaultExtractorsFactory(), null, null);
-            }
-            else if (thumbnailPath != null && !thumbnailPath.isEmpty()) {
+            } else if (thumbnailPath != null && !thumbnailPath.isEmpty()) {
                 mediaSource = new ExtractorMediaSource(Uri.parse(thumbnailPath), new DefaultDataSourceFactory(context, userAgent),
                         new DefaultExtractorsFactory(), null, null);
-            }
-            else {
-                Timber.d("there was no video path");
+            } else {
                 return;
             }
-//            simpleExoPlayer.setVideoListener(new SimpleExoPlayer.VideoListener() {
-//                @Override
-//                public void onVideoSizeChanged(int width, int height, int unappliedRotationDegrees, float pixelWidthHeightRatio) {
-//                }
-//
-//                @Override
-//                public void onRenderedFirstFrame() {
-//                }
-//            });
             simpleExoPlayer.addVideoListener(new SimpleExoPlayer.VideoListener() {
                 @Override
                 public void onVideoSizeChanged(int width, int height, int unappliedRotationDegrees, float pixelWidthHeightRatio) {
-                    Timber.d("onVideoSizeChanged height: " + getDb(height) + " width: " + getDb(width) + " ratio: " + pixelWidthHeightRatio);
                     float heightToWidth = (float) height / width;
-                    Timber.d("onvideo ratio: " + heightToWidth);
                     FrameLayout.LayoutParams params = (FrameLayout.LayoutParams) simpleExoPlayerView.getLayoutParams();
-                    Timber.d("onvideo paramsHeight: " + simpleExoPlayerView.getHeight() + " paramsWidth: " + simpleExoPlayerView.getWidth());
                     params.height = (int) (simpleExoPlayerView.getWidth() * heightToWidth);
-                    Timber.d("onvideo paramsHeightAfter: " + params.height);
                     simpleExoPlayerView.setLayoutParams(params);
                 }
 
                 @Override
                 public void onRenderedFirstFrame() {
-                    Timber.d("simpleExoPlayerHeight: " + getDb(simpleExoPlayerView.getPlayer().getVideoFormat().height));
                 }
             });
             simpleExoPlayer.prepare(mediaSource);
             simpleExoPlayer.setPlayWhenReady(false);
 
-//            Handler handler = new Handler();
-//            handler.postDelayed(new Runnable() {
-//                @Override
-//                public void run() {
-//                    Timber.d("simpleExoPlayerHeight: " + getDb(simpleExoPlayerView.getPlayer().getVideoFormat().height));
-//                }
-//            }, 2000);
-
         }
-
-        simpleExoPlayerView.post(new Runnable() {
-            @Override
-            public void run() {
-                Timber.d("simpleExoPlayerViewHeight: " + getDb(simpleExoPlayerView.getHeight()));
-            }
-        });
-
-//        simpleExoPlayerView.setVisibility(View.VISIBLE);
 
     }
 
@@ -323,8 +250,6 @@ public class StepDetailFragment extends Fragment {
         simpleExoPlayer.release();
         simpleExoPlayer = null;
 
-//        simpleExoPlayerView.setVisibility(View.INVISIBLE);
-
     }
 
     public interface StepDetailClickListener {
@@ -334,23 +259,10 @@ public class StepDetailFragment extends Fragment {
     }
 
     @Override
-    public void onStop() {
-        super.onStop();
-//        if (simpleExoPlayer != null) releasePlayer();
-    }
-
-    @Override
     public void onDestroyView() {
         super.onDestroyView();
         if (unbinder != null) unbinder.unbind();
         if (simpleExoPlayer != null) releasePlayer();
-        Timber.d("unbinding page: " + stepNum);
-    }
-
-    public int getDb(int px) {
-
-        return (int) (px / displayMetrics.density);
-
     }
 
 }

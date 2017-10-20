@@ -1,7 +1,6 @@
 package com.example.alit.bakingappnano.utils;
 
 import android.content.Context;
-import android.util.Log;
 
 import com.example.alit.bakingappnano.services.RecipeJobService;
 import com.firebase.jobdispatcher.Constraint;
@@ -20,22 +19,18 @@ import java.util.concurrent.TimeUnit;
 
 public class ServiceUtils {
 
-    private static final int SYNC_INTERVAL_MINUTES = 60;
-    private static final int SYNC_INTERVAL_SECONDS = (int) (TimeUnit.MINUTES.toSeconds(SYNC_INTERVAL_MINUTES));
+    private static final int SYNC_INTERVAL_WINDOW = (int) (TimeUnit.MINUTES.toSeconds(30));
 
     public static final String ACTION_RECIPES_FETCHED = "recipesFetched";
 
     private static final String RECIPE_JOB_TAG = "recipeJobTag";
 
-    private static final String TAG = "TESTSTUFF";
+    private static boolean isScheduled;
 
-    public static boolean isScheduled;
+    private ServiceUtils() {
+    }
 
-    private ServiceUtils() {}
-
-    synchronized public static void scheduleRecipeJob(Context context) {
-
-        Log.d(TAG, "scheduleRecipeJob called");
+    synchronized public static void scheduleRecipeJob(Context context, int interval) {
 
         if (isScheduled) return;
 
@@ -49,8 +44,8 @@ public class ServiceUtils {
                 .setLifetime(Lifetime.FOREVER)
                 .setRecurring(true)
                 .setTrigger(Trigger.executionWindow(
-                        SYNC_INTERVAL_SECONDS,
-                        SYNC_INTERVAL_SECONDS + SYNC_INTERVAL_SECONDS
+                        interval,
+                        interval + SYNC_INTERVAL_WINDOW
                 ))
                 .setReplaceCurrent(true)
                 .build();
@@ -58,6 +53,18 @@ public class ServiceUtils {
         dispatcher.schedule(recipeJob);
 
         isScheduled = true;
+
+    }
+
+    public static void restartJob(Context context, int interval) {
+
+        Driver driver = new GooglePlayDriver(context);
+        FirebaseJobDispatcher dispatcher = new FirebaseJobDispatcher(driver);
+
+        dispatcher.cancel(RECIPE_JOB_TAG);
+        isScheduled = false;
+
+        scheduleRecipeJob(context, interval);
 
     }
 

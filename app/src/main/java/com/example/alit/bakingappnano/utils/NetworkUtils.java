@@ -1,7 +1,5 @@
 package com.example.alit.bakingappnano.utils;
 
-import android.util.Log;
-
 import com.example.alit.bakingappnano.myDatastructures.Ingredient;
 import com.example.alit.bakingappnano.myDatastructures.Recipe;
 import com.example.alit.bakingappnano.myDatastructures.RecipeDescription;
@@ -40,17 +38,15 @@ public class NetworkUtils {
     public final static String STEP_VIDEO_URL = "videoURL";
     public final static String STEP_THUMBNAIL = "thumbnailURL";
 
-    private final static String TAG = "TESTSTUFF";
-
-    private NetworkUtils() {}
+    private NetworkUtils() {
+    }
 
     public static URL getURL() {
 
         URL url = null;
         try {
             url = new URL(urlString);
-        }
-        catch (Exception e) {
+        } catch (Exception e) {
             e.printStackTrace();
         }
 
@@ -107,8 +103,7 @@ public class NetworkUtils {
                 recipes.add(new Recipe(new RecipeDescription(0, name, servings, imagePath), ingredients, steps));
 
             }
-        }
-        catch (Exception e) {
+        } catch (Exception e) {
             e.printStackTrace();
         }
 
@@ -120,8 +115,6 @@ public class NetworkUtils {
 
         URL url = getURL();
 
-        Log.d(TAG, "url: " + url.toString());
-
         StringBuilder stringBuilder = new StringBuilder();
 
         HttpURLConnection connection = null;
@@ -132,7 +125,6 @@ public class NetworkUtils {
             scanner.useDelimiter("\\A");
             while (scanner.hasNext()) {
                 String next = scanner.next();
-//                Log.d(TAG, "next: " + next);
                 stringBuilder.append(next);
             }
             scanner.close();

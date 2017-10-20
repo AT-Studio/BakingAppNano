@@ -13,12 +13,19 @@ import static net.simonvt.schematic.annotation.DataType.Type.TEXT;
 
 public interface RecipesTable {
 
-    @DataType(INTEGER) @PrimaryKey String _ID = "_id";
+    @DataType(INTEGER)
+    @PrimaryKey
+    String _ID = "_id";
 
-    @DataType(TEXT) @NotNull String NAME = "name";
+    @DataType(TEXT)
+    @NotNull
+    String NAME = "name";
 
-    @DataType(INTEGER) @NotNull String SERVINGS = "servings";
+    @DataType(INTEGER)
+    @NotNull
+    String SERVINGS = "servings";
 
-    @DataType(TEXT) String IMAGE_PATH = "image";
+    @DataType(TEXT)
+    String IMAGE_PATH = "image";
 
 }

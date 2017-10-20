@@ -21,7 +21,8 @@ public final class RecipesProvider {
 
     public static final Uri BASE_CONTENT_URI = Uri.parse(SCHEME + AUTHORITY);
 
-    @TableEndpoint(table = RecipesDatabase.RECIPES) public static class Recipes {
+    @TableEndpoint(table = RecipesDatabase.RECIPES)
+    public static class Recipes {
 
         @ContentUri(
                 path = RecipesDatabase.RECIPES,
@@ -41,7 +42,8 @@ public final class RecipesProvider {
 
     }
 
-    @TableEndpoint(table = RecipesDatabase.INGREDIENTS) public static class Ingredients {
+    @TableEndpoint(table = RecipesDatabase.INGREDIENTS)
+    public static class Ingredients {
 
         @ContentUri(
                 path = RecipesDatabase.INGREDIENTS,
@@ -61,7 +63,8 @@ public final class RecipesProvider {
 
     }
 
-    @TableEndpoint(table = RecipesDatabase.STEPS) public static class Steps {
+    @TableEndpoint(table = RecipesDatabase.STEPS)
+    public static class Steps {
 
         @ContentUri(
                 path = RecipesDatabase.STEPS,

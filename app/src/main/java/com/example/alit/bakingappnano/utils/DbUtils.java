@@ -39,7 +39,8 @@ public class DbUtils {
     public final static String STEP_VIDEO_URL = "videoURL";
     public final static String STEP_THUMBNAIL = "thumbnailURL";
 
-    private DbUtils() {}
+    private DbUtils() {
+    }
 
     public static boolean insertReponseIntoDb(Context context, String JSONString) {
 
@@ -60,8 +61,6 @@ public class DbUtils {
         }
 
         recipesInDb.close();
-
-//        ArrayList<Recipe> recipes = new ArrayList<>();
 
         ArrayList<ContentValues> ingredientValues = new ArrayList<>();
         ArrayList<ContentValues> stepvalues = new ArrayList<>();
@@ -95,9 +94,6 @@ public class DbUtils {
                 JSONArray ingredientsJSON = recipeJSON.getJSONArray(ING_JSON);
                 JSONArray stepsJSON = recipeJSON.getJSONArray(STEPS_JSON);
 
-//                ArrayList<Ingredient> ingredients = new ArrayList<>();
-//                ArrayList<Step> steps = new ArrayList<>();
-
                 for (int j = 0; j < ingredientsJSON.length(); j++) {
 
                     JSONObject ingredientJSON = (JSONObject) ingredientsJSON.get(j);
@@ -114,8 +110,6 @@ public class DbUtils {
                     ingValue.put(IngredientsTable.INGREDIENT, ingredient);
 
                     ingredientValues.add(ingValue);
-
-//                    ingredients.add(new Ingredient(0, quantity, measure, ingredient));
 
                 }
 
@@ -138,15 +132,10 @@ public class DbUtils {
 
                     stepvalues.add(stepvalue);
 
-//                    steps.add(new Step(0, shortDesc, longDesc, videoPath, thumbnailPath));
-
                 }
 
-//                recipes.add(new Recipe(0, name, servings, imagePath, ingredients, steps));
-
             }
-        }
-        catch (Exception e) {
+        } catch (Exception e) {
             e.printStackTrace();
         }
 

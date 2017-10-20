@@ -11,7 +11,7 @@ import com.firebase.jobdispatcher.JobService;
 
 public class RecipeJobService extends JobService {
 
-    AsyncTask backgroundTask;
+    private AsyncTask backgroundTask;
 
     @Override
     public boolean onStartJob(JobParameters job) {

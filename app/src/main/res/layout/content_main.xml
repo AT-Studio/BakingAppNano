@@ -5,7 +5,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     app:layout_behavior="@string/appbar_scrolling_view_behavior"
-    tools:context="com.example.alit.bakingappnano.MainActivity"
+    tools:context="com.example.alit.bakingappnano.main.MainActivity"
     tools:showIn="@layout/app_bar_main">
 
     <android.support.v4.widget.SwipeRefreshLayout
@@ -35,7 +35,7 @@
         android:layout_height="wrap_content"
         android:layout_gravity="center"
         android:visibility="invisible"
-        android:text="Please check your internet connection"
+        android:text="@string/main_error_text"
         android:textColor="@color/divider"/>
 
 </FrameLayout>

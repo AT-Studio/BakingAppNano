@@ -5,7 +5,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     app:layout_behavior="@string/appbar_scrolling_view_behavior"
-    tools:context="com.example.alit.bakingappnano.RecipeDetailActivity"
+    tools:context="com.example.alit.bakingappnano.recipeDetail.RecipeDetailActivity"
     tools:showIn="@layout/activity_recipe_detail">
 
     <FrameLayout
@@ -16,7 +16,7 @@
             android:id="@+id/masterDetailFragment"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:name="com.example.alit.bakingappnano.MasterDetailFragment"/>
+            android:name="com.example.alit.bakingappnano.recipeDetail.MasterDetailFragment"/>
 
         <android.support.design.widget.FloatingActionButton
             android:id="@+id/setWidgetFAB"
@@ -33,13 +33,5 @@
         android:id="@+id/stepContainer"
         android:layout_width="match_parent"
         android:layout_height="match_parent" />
-
-    <!--<android.support.v4.view.ViewPager-->
-        <!--android:id="@+id/stepDetailViewPager"-->
-        <!--android:layout_width="match_parent"-->
-        <!--android:layout_height="match_parent"-->
-        <!--android:visibility="gone">-->
-
-    <!--</android.support.v4.view.ViewPager>-->
 
 </FrameLayout>

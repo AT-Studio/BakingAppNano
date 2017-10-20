@@ -40,6 +40,7 @@
         android:layout_height="wrap_content"
         android:visibility="invisible"
         android:layout_marginLeft="10dp"
+        android:layout_marginStart="10dp"
         android:src="@drawable/checkmark_24dp"/>
 
 </LinearLayout>

@@ -1,4 +1,4 @@
-package com.example.alit.bakingappnano;
+package com.example.alit.bakingappnano.adapters;
 
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
@@ -6,6 +6,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
 
+import com.example.alit.bakingappnano.R;
 import com.example.alit.bakingappnano.myDatastructures.Ingredient;
 
 import java.util.ArrayList;
@@ -19,13 +20,11 @@ import butterknife.ButterKnife;
 
 public class IngredientRecyclerViewAdapter extends RecyclerView.Adapter<IngredientRecyclerViewAdapter.IngredientViewHolder> {
 
-    ArrayList<Ingredient> ingredients;
+    private ArrayList<Ingredient> ingredients;
 
     public IngredientRecyclerViewAdapter(ArrayList<Ingredient> ingredients) {
 
         this.ingredients = ingredients;
-
-//        Timber.d("creating adapter with size: " + getItemCount());
 
     }
 
@@ -39,8 +38,6 @@ public class IngredientRecyclerViewAdapter extends RecyclerView.Adapter<Ingredie
 
     @Override
     public void onBindViewHolder(IngredientViewHolder holder, int position) {
-
-//        Timber.d("Binding viewholder");
 
         Ingredient ingredient = ingredients.get(position);
 
@@ -62,9 +59,12 @@ public class IngredientRecyclerViewAdapter extends RecyclerView.Adapter<Ingredie
 
     public class IngredientViewHolder extends RecyclerView.ViewHolder {
 
-        @BindView(R.id.nameText) TextView nameText;
-        @BindView(R.id.quantityText) TextView quantityText;
-        @BindView(R.id.measureText) TextView measureText;
+        @BindView(R.id.nameText)
+        TextView nameText;
+        @BindView(R.id.quantityText)
+        TextView quantityText;
+        @BindView(R.id.measureText)
+        TextView measureText;
 
         public IngredientViewHolder(View itemView) {
             super(itemView);

@@ -1,0 +1,354 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="?android:colorBackground"
+    android:clickable="true">
+
+    <ImageView
+        android:id="@+id/closeFragment"
+        android:layout_width="30dp"
+        android:layout_height="30dp"
+        android:src="@drawable/close_icon_24dp"
+        android:layout_marginBottom="13dp"
+        android:layout_marginLeft="15dp"
+        android:background="?attr/selectableItemBackgroundBorderless"
+        android:layout_marginTop="13dp" />
+
+    <ScrollView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_below="@id/closeFragment">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical">
+
+            <android.support.constraint.ConstraintLayout
+                android:id="@+id/butterKnifeWrapper"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content">
+
+                <TextView
+                    android:id="@+id/butterKnifeTitle"
+                    style="@style/licenseTitle"
+                    android:text="@string/butter_knife_title"
+                    app:layout_constraintTop_toTopOf="parent"
+                    app:layout_constraintLeft_toLeftOf="parent"
+                    app:layout_constraintRight_toLeftOf="@+id/butterKnifeDownArrow" />
+
+                <TextView
+                    android:id="@+id/butterKnifeLink"
+                    style="@style/licenseLink"
+                    android:text="@string/butter_knife_link"
+                    app:layout_constraintTop_toBottomOf="@id/butterKnifeTitle"
+                    app:layout_constraintLeft_toLeftOf="parent"
+                    app:layout_constraintRight_toLeftOf="@+id/butterKnifeDownArrow" />
+
+                <ImageView
+                    android:id="@+id/butterKnifeDownArrow"
+                    style="@style/licenseArrow"
+                    android:src="@drawable/down_arrow_24dp"
+                    android:visibility="invisible"
+                    app:layout_constraintTop_toTopOf="@+id/butterKnifeTitle"
+                    app:layout_constraintBottom_toBottomOf="@+id/butterKnifeLink"
+                    app:layout_constraintRight_toRightOf="parent" />
+
+                <ImageView
+                    android:id="@+id/butterKnifeUpArrow"
+                    style="@style/licenseArrow"
+                    android:src="@drawable/up_arrow_24dp"
+                    android:visibility="visible"
+                    app:layout_constraintTop_toTopOf="@+id/butterKnifeTitle"
+                    app:layout_constraintBottom_toBottomOf="@+id/butterKnifeLink"
+                    app:layout_constraintRight_toRightOf="parent" />
+                
+                <TextView
+                    android:id="@+id/butterKnifeLicense"
+                    style="@style/licenseLicense"
+                    android:text="@string/butter_knife_license"
+                    app:layout_constraintTop_toBottomOf="@id/butterKnifeLink"
+                    app:layout_constraintRight_toRightOf="parent"
+                    app:layout_constraintLeft_toLeftOf="parent" />
+
+            </android.support.constraint.ConstraintLayout>
+
+            <View
+                style="@style/licenseDivider"/>
+
+            <android.support.constraint.ConstraintLayout
+                android:id="@+id/exoPlayerWrapper"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content">
+
+                <TextView
+                    android:id="@+id/exoPlayerTitle"
+                    style="@style/licenseTitle"
+                    android:text="@string/exoPlayer_title"
+                    app:layout_constraintTop_toTopOf="parent"
+                    app:layout_constraintLeft_toLeftOf="parent"
+                    app:layout_constraintRight_toLeftOf="@+id/exoPlayerDownArrow" />
+
+                <TextView
+                    android:id="@+id/exoPlayerLink"
+                    style="@style/licenseLink"
+                    android:text="@string/exoPlayer_link"
+                    app:layout_constraintTop_toBottomOf="@id/exoPlayerTitle"
+                    app:layout_constraintLeft_toLeftOf="parent"
+                    app:layout_constraintRight_toLeftOf="@+id/exoPlayerDownArrow" />
+
+                <ImageView
+                    android:id="@+id/exoPlayerDownArrow"
+                    style="@style/licenseArrow"
+                    android:src="@drawable/down_arrow_24dp"
+                    android:visibility="invisible"
+                    app:layout_constraintTop_toTopOf="@+id/exoPlayerTitle"
+                    app:layout_constraintBottom_toBottomOf="@+id/exoPlayerLink"
+                    app:layout_constraintRight_toRightOf="parent" />
+
+                <ImageView
+                    android:id="@+id/exoPlayerUpArrow"
+                    style="@style/licenseArrow"
+                    android:src="@drawable/up_arrow_24dp"
+                    android:visibility="visible"
+                    app:layout_constraintTop_toTopOf="@+id/exoPlayerTitle"
+                    app:layout_constraintBottom_toBottomOf="@+id/exoPlayerLink"
+                    app:layout_constraintRight_toRightOf="parent" />
+
+                <TextView
+                    android:id="@+id/exoPlayerLicense"
+                    style="@style/licenseLicense"
+                    android:text="@string/exoPlayer_license"
+                    app:layout_constraintTop_toBottomOf="@id/exoPlayerLink"
+                    app:layout_constraintRight_toRightOf="parent"
+                    app:layout_constraintLeft_toLeftOf="parent" />
+
+            </android.support.constraint.ConstraintLayout>
+
+            <View
+                style="@style/licenseDivider"/>
+
+            <android.support.constraint.ConstraintLayout
+                android:id="@+id/jobDispatcherWrapper"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content">
+
+                <TextView
+                    android:id="@+id/jobDispatcherTitle"
+                    style="@style/licenseTitle"
+                    android:text="@string/jobDispatcher_title"
+                    app:layout_constraintTop_toTopOf="parent"
+                    app:layout_constraintLeft_toLeftOf="parent"
+                    app:layout_constraintRight_toLeftOf="@+id/jobDispatcherDownArrow" />
+
+                <TextView
+                    android:id="@+id/jobDispatcherLink"
+                    style="@style/licenseLink"
+                    android:text="@string/jobDispatcher_link"
+                    app:layout_constraintTop_toBottomOf="@id/jobDispatcherTitle"
+                    app:layout_constraintLeft_toLeftOf="parent"
+                    app:layout_constraintRight_toLeftOf="@+id/jobDispatcherDownArrow" />
+
+                <ImageView
+                    android:id="@+id/jobDispatcherDownArrow"
+                    style="@style/licenseArrow"
+                    android:src="@drawable/down_arrow_24dp"
+                    android:visibility="invisible"
+                    app:layout_constraintTop_toTopOf="@+id/jobDispatcherTitle"
+                    app:layout_constraintBottom_toBottomOf="@+id/jobDispatcherLink"
+                    app:layout_constraintRight_toRightOf="parent" />
+
+                <ImageView
+                    android:id="@+id/jobDispatcherUpArrow"
+                    style="@style/licenseArrow"
+                    android:src="@drawable/up_arrow_24dp"
+                    android:visibility="visible"
+                    app:layout_constraintTop_toTopOf="@+id/jobDispatcherTitle"
+                    app:layout_constraintBottom_toBottomOf="@+id/jobDispatcherLink"
+                    app:layout_constraintRight_toRightOf="parent" />
+
+                <TextView
+                    android:id="@+id/jobDispatcherLicense"
+                    style="@style/licenseLicense"
+                    android:text="@string/jobDispatcher_license"
+                    app:layout_constraintTop_toBottomOf="@id/jobDispatcherLink"
+                    app:layout_constraintRight_toRightOf="parent"
+                    app:layout_constraintLeft_toLeftOf="parent" />
+
+            </android.support.constraint.ConstraintLayout>
+
+            <View
+                style="@style/licenseDivider"/>
+
+            <android.support.constraint.ConstraintLayout
+                android:id="@+id/picassoWrapper"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content">
+
+                <TextView
+                    android:id="@+id/picassoTitle"
+                    style="@style/licenseTitle"
+                    android:text="@string/picasso_title"
+                    app:layout_constraintTop_toTopOf="parent"
+                    app:layout_constraintLeft_toLeftOf="parent"
+                    app:layout_constraintRight_toLeftOf="@+id/picassoDownArrow" />
+
+                <TextView
+                    android:id="@+id/picassoLink"
+                    style="@style/licenseLink"
+                    android:text="@string/picasso_link"
+                    app:layout_constraintTop_toBottomOf="@id/picassoTitle"
+                    app:layout_constraintLeft_toLeftOf="parent"
+                    app:layout_constraintRight_toLeftOf="@+id/picassoDownArrow" />
+
+                <ImageView
+                    android:id="@+id/picassoDownArrow"
+                    style="@style/licenseArrow"
+                    android:src="@drawable/down_arrow_24dp"
+                    android:visibility="invisible"
+                    app:layout_constraintTop_toTopOf="@+id/picassoTitle"
+                    app:layout_constraintBottom_toBottomOf="@+id/picassoLink"
+                    app:layout_constraintRight_toRightOf="parent" />
+
+                <ImageView
+                    android:id="@+id/picassoUpArrow"
+                    style="@style/licenseArrow"
+                    android:src="@drawable/up_arrow_24dp"
+                    android:visibility="visible"
+                    app:layout_constraintTop_toTopOf="@+id/picassoTitle"
+                    app:layout_constraintBottom_toBottomOf="@+id/picassoLink"
+                    app:layout_constraintRight_toRightOf="parent" />
+
+                <TextView
+                    android:id="@+id/picassoLicense"
+                    style="@style/licenseLicense"
+                    android:text="@string/picasso_license"
+                    app:layout_constraintTop_toBottomOf="@id/picassoLink"
+                    app:layout_constraintRight_toRightOf="parent"
+                    app:layout_constraintLeft_toLeftOf="parent" />
+
+            </android.support.constraint.ConstraintLayout>
+
+            <View
+                style="@style/licenseDivider"/>
+
+            <android.support.constraint.ConstraintLayout
+                android:id="@+id/schematicWrapper"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content">
+
+                <TextView
+                    android:id="@+id/schematicTitle"
+                    style="@style/licenseTitle"
+                    android:text="@string/schematic_title"
+                    app:layout_constraintTop_toTopOf="parent"
+                    app:layout_constraintLeft_toLeftOf="parent"
+                    app:layout_constraintRight_toLeftOf="@+id/schematicDownArrow" />
+
+                <TextView
+                    android:id="@+id/schematicLink"
+                    style="@style/licenseLink"
+                    android:text="@string/schematic_link"
+                    app:layout_constraintTop_toBottomOf="@id/schematicTitle"
+                    app:layout_constraintLeft_toLeftOf="parent"
+                    app:layout_constraintRight_toLeftOf="@+id/schematicDownArrow" />
+
+                <ImageView
+                    android:id="@+id/schematicDownArrow"
+                    style="@style/licenseArrow"
+                    android:src="@drawable/down_arrow_24dp"
+                    android:visibility="invisible"
+                    app:layout_constraintTop_toTopOf="@+id/schematicTitle"
+                    app:layout_constraintBottom_toBottomOf="@+id/schematicLink"
+                    app:layout_constraintRight_toRightOf="parent" />
+
+                <ImageView
+                    android:id="@+id/schematicUpArrow"
+                    style="@style/licenseArrow"
+                    android:src="@drawable/up_arrow_24dp"
+                    android:visibility="visible"
+                    app:layout_constraintTop_toTopOf="@+id/schematicTitle"
+                    app:layout_constraintBottom_toBottomOf="@+id/schematicLink"
+                    app:layout_constraintRight_toRightOf="parent" />
+
+                <TextView
+                    android:id="@+id/schematicLicense"
+                    style="@style/licenseLicense"
+                    android:text="@string/schematic_license"
+                    app:layout_constraintTop_toBottomOf="@id/schematicLink"
+                    app:layout_constraintRight_toRightOf="parent"
+                    app:layout_constraintLeft_toLeftOf="parent" />
+
+            </android.support.constraint.ConstraintLayout>
+
+            <View
+                style="@style/licenseDivider"/>
+
+            <android.support.constraint.ConstraintLayout
+                android:id="@+id/timberWrapper"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content">
+
+                <TextView
+                    android:id="@+id/timberTitle"
+                    style="@style/licenseTitle"
+                    android:text="@string/timber_title"
+                    app:layout_constraintTop_toTopOf="parent"
+                    app:layout_constraintLeft_toLeftOf="parent"
+                    app:layout_constraintRight_toLeftOf="@+id/timberDownArrow" />
+
+                <TextView
+                    android:id="@+id/timberLink"
+                    style="@style/licenseLink"
+                    android:text="@string/timber_link"
+                    app:layout_constraintTop_toBottomOf="@id/timberTitle"
+                    app:layout_constraintLeft_toLeftOf="parent"
+                    app:layout_constraintRight_toLeftOf="@+id/timberDownArrow" />
+
+                <ImageView
+                    android:id="@+id/timberDownArrow"
+                    style="@style/licenseArrow"
+                    android:src="@drawable/down_arrow_24dp"
+                    android:visibility="invisible"
+                    app:layout_constraintTop_toTopOf="@+id/timberTitle"
+                    app:layout_constraintBottom_toBottomOf="@+id/timberLink"
+                    app:layout_constraintRight_toRightOf="parent" />
+
+                <ImageView
+                    android:id="@+id/timberUpArrow"
+                    style="@style/licenseArrow"
+                    android:src="@drawable/up_arrow_24dp"
+                    android:visibility="visible"
+                    app:layout_constraintTop_toTopOf="@+id/timberTitle"
+                    app:layout_constraintBottom_toBottomOf="@+id/timberLink"
+                    app:layout_constraintRight_toRightOf="parent" />
+
+                <TextView
+                    android:id="@+id/timberLicense"
+                    style="@style/licenseLicense"
+                    android:text="@string/timber_license"
+                    app:layout_constraintTop_toBottomOf="@id/timberLink"
+                    app:layout_constraintRight_toRightOf="parent"
+                    app:layout_constraintLeft_toLeftOf="parent" />
+
+            </android.support.constraint.ConstraintLayout>
+
+            <View
+                style="@style/licenseDivider"/>
+
+        </LinearLayout>
+
+    </ScrollView>
+
+    <View
+        android:id="@+id/toolbarDivider"
+        android:layout_width="match_parent"
+        android:layout_height="2dp"
+        android:background="@drawable/line_shadow"
+        android:layout_below="@id/closeFragment"
+        android:rotation="180"/>
+
+</RelativeLayout>

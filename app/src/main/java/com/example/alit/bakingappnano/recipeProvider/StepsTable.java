@@ -15,16 +15,28 @@ import static net.simonvt.schematic.annotation.DataType.Type.TEXT;
 
 public interface StepsTable {
 
-    @DataType(INTEGER) @PrimaryKey @AutoIncrement String _ID = "_id";
+    @DataType(INTEGER)
+    @PrimaryKey
+    @AutoIncrement
+    String _ID = "_id";
 
-    @DataType(INTEGER) @References(table = RecipesDatabase.RECIPES, column = RecipesTable._ID) @NotNull String RECIPE_ID = "recipeId";
+    @DataType(INTEGER)
+    @References(table = RecipesDatabase.RECIPES, column = RecipesTable._ID)
+    @NotNull
+    String RECIPE_ID = "recipeId";
 
-    @DataType(TEXT) @NotNull String SHORT_DESC = "shortDesc";
+    @DataType(TEXT)
+    @NotNull
+    String SHORT_DESC = "shortDesc";
 
-    @DataType(TEXT) @NotNull String LONG_DESC = "longDesc";
+    @DataType(TEXT)
+    @NotNull
+    String LONG_DESC = "longDesc";
 
-    @DataType(TEXT) String VIDEO_PATH = "videoPath";
+    @DataType(TEXT)
+    String VIDEO_PATH = "videoPath";
 
-    @DataType(TEXT) String THUMBNAIL_PATH = "thumbnailPath";
+    @DataType(TEXT)
+    String THUMBNAIL_PATH = "thumbnailPath";
 
 }

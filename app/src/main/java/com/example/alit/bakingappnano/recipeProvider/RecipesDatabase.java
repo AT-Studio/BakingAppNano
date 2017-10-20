@@ -16,18 +16,22 @@ public final class RecipesDatabase {
 
     public static final int VERSION = 2;
 
-    @Table(RecipesTable.class) public static final String RECIPES = "recipes";
+    @Table(RecipesTable.class)
+    public static final String RECIPES = "recipes";
 
-    @Table(IngredientsTable.class) public static final String INGREDIENTS = "ingredients";
+    @Table(IngredientsTable.class)
+    public static final String INGREDIENTS = "ingredients";
 
-    @Table(StepsTable.class) public static final String STEPS = "steps";
+    @Table(StepsTable.class)
+    public static final String STEPS = "steps";
 
     public RecipesDatabase() {
 
     }
 
-    @OnUpgrade public static void onUpgrade(Context context, SQLiteDatabase db, int oldVersion,
-                                            int newVersion) {
+    @OnUpgrade
+    public static void onUpgrade(Context context, SQLiteDatabase db, int oldVersion,
+                                 int newVersion) {
 
         db.execSQL("DROP TABLE IF EXISTS " + RECIPES);
         db.execSQL("DROP TABLE IF EXISTS " + INGREDIENTS);

@@ -1,7 +1,6 @@
-package com.example.alit.bakingappnano;
+package com.example.alit.bakingappnano.adapters;
 
 import android.content.Context;
-import android.support.v4.content.ContextCompat;
 import android.support.v7.widget.CardView;
 import android.support.v7.widget.RecyclerView;
 import android.util.DisplayMetrics;
@@ -12,6 +11,7 @@ import android.widget.FrameLayout;
 import android.widget.ImageView;
 import android.widget.TextView;
 
+import com.example.alit.bakingappnano.R;
 import com.example.alit.bakingappnano.myDatastructures.RecipeDescription;
 import com.squareup.picasso.Picasso;
 
@@ -19,7 +19,6 @@ import java.util.ArrayList;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
-import timber.log.Timber;
 
 /**
  * Created by AliT on 10/5/17.
@@ -27,15 +26,13 @@ import timber.log.Timber;
 
 public class RecipeRecyclerViewAdapter extends RecyclerView.Adapter<RecipeRecyclerViewAdapter.RecipeViewHolder> {
 
-    RecipeItemClickListener listener;
-    ArrayList<RecipeDescription> descriptions;
-    Context context;
+    private RecipeItemClickListener listener;
+    private ArrayList<RecipeDescription> descriptions;
+    private Context context;
 
-    DisplayMetrics displayMetrics;
+    private DisplayMetrics displayMetrics;
 
-    int numColumns;
-
-    private final String TAG = "TESTSTUFF";
+    private int numColumns;
 
     public RecipeRecyclerViewAdapter(ArrayList<RecipeDescription> descriptions, RecipeItemClickListener listener, Context context,
                                      int numColumns) {
@@ -74,32 +71,11 @@ public class RecipeRecyclerViewAdapter extends RecyclerView.Adapter<RecipeRecycl
             holder.recipeCard.setLayoutParams(params);
         }
 
-//        for (int i = 1; i < numColumns + 1; i++) {
-//
-//            Timber.d("going through last columns");
-//
-//            if (position == getItemCount() - i) {
-//                FrameLayout.MarginLayoutParams params = (FrameLayout.MarginLayoutParams) holder.recipeCard.getLayoutParams();
-//                params.bottomMargin = getPixels(20);
-//                holder.recipeCard.setLayoutParams(params);
-//            }
-//
-//        }
-
-        if (position == 0) {
-            holder.noImageText.setVisibility(View.GONE);
-            holder.recipeImage.setImageDrawable(ContextCompat.getDrawable(context, R.drawable.cupcake));
-        }
-        else if (position == 1) {
-            holder.noImageText.setVisibility(View.GONE);
-            holder.recipeImage.setImageDrawable(ContextCompat.getDrawable(context, R.drawable.brownie));
-        }
-        else if (imagePath != null && !imagePath.isEmpty()) {
+        if (imagePath != null && !imagePath.isEmpty()) {
             Picasso.with(context).load(description.imagePath).into(holder.recipeImage);
             holder.noImageText.setVisibility(View.GONE);
             holder.recipeImage.setVisibility(View.VISIBLE);
-        }
-        else {
+        } else {
             holder.recipeImage.setVisibility(View.GONE);
             holder.noImageText.setVisibility(View.VISIBLE);
         }
@@ -109,13 +85,6 @@ public class RecipeRecyclerViewAdapter extends RecyclerView.Adapter<RecipeRecycl
         holder.servingNum.setText(Integer.toString(description.servings));
 
     }
-
-//    public void updateDescriptions(ArrayList<RecipeDescription> descriptions) {
-//
-//        this.descriptions = descriptions;
-//        notifyDataSetChanged();
-//
-//    }
 
     @Override
     public int getItemCount() {
@@ -128,13 +97,18 @@ public class RecipeRecyclerViewAdapter extends RecyclerView.Adapter<RecipeRecycl
 
     }
 
-    public class RecipeViewHolder extends RecyclerView.ViewHolder{
+    public class RecipeViewHolder extends RecyclerView.ViewHolder {
 
-        @BindView(R.id.recipeCard) CardView recipeCard;
-        @BindView(R.id.recipeImage) ImageView recipeImage;
-        @BindView(R.id.recipeName) TextView recipeName;
-        @BindView(R.id.servingNum) TextView servingNum;
-        @BindView(R.id.noImageText) TextView noImageText;
+        @BindView(R.id.recipeCard)
+        CardView recipeCard;
+        @BindView(R.id.recipeImage)
+        ImageView recipeImage;
+        @BindView(R.id.recipeName)
+        TextView recipeName;
+        @BindView(R.id.servingNum)
+        TextView servingNum;
+        @BindView(R.id.noImageText)
+        TextView noImageText;
 
         public RecipeViewHolder(View itemView) {
 
@@ -145,7 +119,6 @@ public class RecipeRecyclerViewAdapter extends RecyclerView.Adapter<RecipeRecycl
             recipeCard.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View view) {
-                    Timber.d("clicked recyclerItem");
                     listener.recipeClicked(getAdapterPosition());
                 }
             });
