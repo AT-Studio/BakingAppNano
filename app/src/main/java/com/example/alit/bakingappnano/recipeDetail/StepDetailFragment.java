@@ -9,6 +9,7 @@ import android.support.v4.app.Fragment;
 import android.support.v7.app.ActionBar;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.CardView;
+import android.text.TextUtils;
 import android.view.LayoutInflater;
 import android.view.Surface;
 import android.view.View;
@@ -35,12 +36,15 @@ import com.google.android.exoplayer2.util.Util;
 import butterknife.BindView;
 import butterknife.ButterKnife;
 import butterknife.Unbinder;
+import timber.log.Timber;
 
 /**
  * Created by AliT on 10/10/17.
  */
 
 public class StepDetailFragment extends Fragment {
+
+    public static final String EXO_PLAYER_CURRENT_POSITION = "currentPosition";
 
     @BindView(R.id.stepNumText)
     TextView stepNumText;
@@ -70,11 +74,13 @@ public class StepDetailFragment extends Fragment {
 
     private Unbinder unbinder;
 
-    private boolean hasVideo;
+//    private boolean hasVideo;
 
     private boolean isLand;
 
     private boolean isTablet;
+
+    private long exoPlayerStartPosition;
 
     @Override
     public void onAttach(Context context) {
@@ -103,9 +109,9 @@ public class StepDetailFragment extends Fragment {
         thumbnailPath = bundle.getString(StepsTable.THUMBNAIL_PATH);
         isTablet = bundle.getBoolean(RecipeDetailActivity.EXTRA_IS_TABLET);
 
-        if (videoPath != null && !videoPath.isEmpty() || thumbnailPath != null && !thumbnailPath.isEmpty()) {
-            hasVideo = true;
-        }
+//        if (videoPath != null && !videoPath.isEmpty() || thumbnailPath != null && !thumbnailPath.isEmpty()) {
+//            hasVideo = true;
+//        }
 
     }
 
@@ -142,14 +148,16 @@ public class StepDetailFragment extends Fragment {
             }
         }
 
-        if (!hasVideo) simpleExoPlayerView.setVisibility(View.GONE);
-
         return rootView;
     }
 
     @Override
     public void onActivityCreated(@Nullable Bundle savedInstanceState) {
         super.onActivityCreated(savedInstanceState);
+
+        if (savedInstanceState != null) {
+            exoPlayerStartPosition = savedInstanceState.getLong(EXO_PLAYER_CURRENT_POSITION, 0);
+        }
 
         if (!isLand) {
 
@@ -176,8 +184,16 @@ public class StepDetailFragment extends Fragment {
 
         }
 
-        if (hasVideo) initializeExoPlayer();
+    }
 
+    @Override
+    public void onStart() {
+        super.onStart();
+        if (TextUtils.isEmpty(videoPath)) {
+            simpleExoPlayerView.setVisibility(View.GONE);
+        } else {
+            initializeExoPlayer();
+        }
     }
 
     public int getScreenOrientation(Context context) {
@@ -193,16 +209,18 @@ public class StepDetailFragment extends Fragment {
             simpleExoPlayer = ExoPlayerFactory.newSimpleInstance(context, selector, loadControl);
             simpleExoPlayerView.setPlayer(simpleExoPlayer);
             String userAgent = Util.getUserAgent(context, getResources().getString(R.string.app_name));
-            MediaSource mediaSource = null;
-            if (videoPath != null && !videoPath.isEmpty()) {
-                mediaSource = new ExtractorMediaSource(Uri.parse(videoPath), new DefaultDataSourceFactory(context, userAgent),
-                        new DefaultExtractorsFactory(), null, null);
-            } else if (thumbnailPath != null && !thumbnailPath.isEmpty()) {
-                mediaSource = new ExtractorMediaSource(Uri.parse(thumbnailPath), new DefaultDataSourceFactory(context, userAgent),
-                        new DefaultExtractorsFactory(), null, null);
-            } else {
-                return;
-            }
+//            MediaSource mediaSource = null;
+//            if (videoPath != null && !videoPath.isEmpty()) {
+//                mediaSource = new ExtractorMediaSource(Uri.parse(videoPath), new DefaultDataSourceFactory(context, userAgent),
+//                        new DefaultExtractorsFactory(), null, null);
+//            } else if (thumbnailPath != null && !thumbnailPath.isEmpty()) {
+//                mediaSource = new ExtractorMediaSource(Uri.parse(thumbnailPath), new DefaultDataSourceFactory(context, userAgent),
+//                        new DefaultExtractorsFactory(), null, null);
+//            } else {
+//                return;
+//            }
+            MediaSource mediaSource = new ExtractorMediaSource(Uri.parse(videoPath), new DefaultDataSourceFactory(context, userAgent),
+                    new DefaultExtractorsFactory(), null, null);
             simpleExoPlayer.addVideoListener(new SimpleExoPlayer.VideoListener() {
                 @Override
                 public void onVideoSizeChanged(int width, int height, int unappliedRotationDegrees, float pixelWidthHeightRatio) {
@@ -217,6 +235,8 @@ public class StepDetailFragment extends Fragment {
                 }
             });
             simpleExoPlayer.prepare(mediaSource);
+            Timber.d("current position: " + exoPlayerStartPosition);
+            simpleExoPlayer.seekTo(exoPlayerStartPosition);
             simpleExoPlayer.setPlayWhenReady(false);
 
         }
@@ -246,6 +266,7 @@ public class StepDetailFragment extends Fragment {
 
     public void releasePlayer() {
 
+        Timber.d("releaseing player");
         simpleExoPlayer.stop();
         simpleExoPlayer.release();
         simpleExoPlayer = null;
@@ -259,10 +280,25 @@ public class StepDetailFragment extends Fragment {
     }
 
     @Override
+    public void onSaveInstanceState(Bundle outState) {
+        super.onSaveInstanceState(outState);
+        Timber.d("onSaveInstanceState");
+        if (simpleExoPlayer != null) outState.putLong(EXO_PLAYER_CURRENT_POSITION, simpleExoPlayer.getCurrentPosition());
+    }
+
+    @Override
+    public void onStop() {
+        super.onStop();
+        if (simpleExoPlayer != null) {
+            exoPlayerStartPosition = simpleExoPlayer.getCurrentPosition();
+            releasePlayer();
+        }
+    }
+
+    @Override
     public void onDestroyView() {
         super.onDestroyView();
         if (unbinder != null) unbinder.unbind();
-        if (simpleExoPlayer != null) releasePlayer();
     }
 
 }

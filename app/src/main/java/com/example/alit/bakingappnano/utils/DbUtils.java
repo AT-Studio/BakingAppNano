@@ -6,15 +6,16 @@ import android.content.Context;
 import android.database.Cursor;
 import android.net.Uri;
 
+import com.example.alit.bakingappnano.myDatastructures.Ingredient;
+import com.example.alit.bakingappnano.myDatastructures.Recipe;
+import com.example.alit.bakingappnano.myDatastructures.Step;
 import com.example.alit.bakingappnano.recipeProvider.IngredientsTable;
 import com.example.alit.bakingappnano.recipeProvider.RecipesProvider;
 import com.example.alit.bakingappnano.recipeProvider.RecipesTable;
 import com.example.alit.bakingappnano.recipeProvider.StepsTable;
 
-import org.json.JSONArray;
-import org.json.JSONObject;
-
 import java.util.ArrayList;
+import java.util.List;
 
 /**
  * Created by AliT on 10/9/17.
@@ -42,7 +43,7 @@ public class DbUtils {
     private DbUtils() {
     }
 
-    public static boolean insertReponseIntoDb(Context context, String JSONString) {
+    public static void insertReponseIntoDb(Context context, List<Recipe> recipes) {
 
         ContentResolver contentResolver = context.getContentResolver();
 
@@ -60,83 +61,51 @@ public class DbUtils {
             recipeIds.add(recipesInDb.getLong(recipesInDb.getColumnIndex(RecipesTable._ID)));
         }
 
-        recipesInDb.close();
-
         ArrayList<ContentValues> ingredientValues = new ArrayList<>();
         ArrayList<ContentValues> stepvalues = new ArrayList<>();
 
-        try {
-            JSONArray recipesJSON = new JSONArray(JSONString);
+        for (Recipe recipe : recipes) {
 
-            for (int i = 0; i < recipesJSON.length(); i++) {
+            if (recipeIds.contains(recipe.id)) continue;
 
-                JSONObject recipeJSON = (JSONObject) recipesJSON.get(i);
+            ContentValues recipeValue = new ContentValues();
 
-                ContentValues recipeValue = new ContentValues();
+            recipeValue.put(RecipesTable._ID, recipe.id);
+            recipeValue.put(RecipesTable.NAME, recipe.name);
+            recipeValue.put(RecipesTable.SERVINGS, recipe.servings);
+            recipeValue.put(RecipesTable.IMAGE_PATH, recipe.image);
 
-                long id = recipeJSON.getLong(RECIPE_ID);
+            Uri uri = contentResolver.insert(RecipesProvider.Recipes.RECIPES, recipeValue);
 
-                if (recipeIds.contains(id)) continue;
+            long key = Long.parseLong(uri.getLastPathSegment());
 
-                String name = recipeJSON.getString(RECIPE_NAME);
-                int servings = recipeJSON.getInt(RECIPE_SERVINGS);
-                String imagePath = recipeJSON.getString(RECIPE_IMAGE);
+            for (Ingredient ingredient : recipe.ingredients) {
 
-                recipeValue.put(RecipesTable._ID, id);
-                recipeValue.put(RecipesTable.NAME, name);
-                recipeValue.put(RecipesTable.SERVINGS, servings);
-                recipeValue.put(RecipesTable.IMAGE_PATH, imagePath);
+                ContentValues ingValue = new ContentValues();
 
-                Uri uri = contentResolver.insert(RecipesProvider.Recipes.RECIPES, recipeValue);
+                ingValue.put(IngredientsTable.RECIPE_ID, key);
+                ingValue.put(IngredientsTable.QUANTITY, ingredient.quantity);
+                ingValue.put(IngredientsTable.MEASURE, ingredient.measure);
+                ingValue.put(IngredientsTable.INGREDIENT, ingredient.ingredient);
 
-                long key = Long.parseLong(uri.getLastPathSegment());
-
-                JSONArray ingredientsJSON = recipeJSON.getJSONArray(ING_JSON);
-                JSONArray stepsJSON = recipeJSON.getJSONArray(STEPS_JSON);
-
-                for (int j = 0; j < ingredientsJSON.length(); j++) {
-
-                    JSONObject ingredientJSON = (JSONObject) ingredientsJSON.get(j);
-
-                    ContentValues ingValue = new ContentValues();
-
-                    int quantity = ingredientJSON.getInt(ING_QUANTITY);
-                    String measure = ingredientJSON.getString(ING_MEASURE);
-                    String ingredient = ingredientJSON.getString(ING_INGREDIENT);
-
-                    ingValue.put(IngredientsTable.RECIPE_ID, key);
-                    ingValue.put(IngredientsTable.QUANTITY, quantity);
-                    ingValue.put(IngredientsTable.MEASURE, measure);
-                    ingValue.put(IngredientsTable.INGREDIENT, ingredient);
-
-                    ingredientValues.add(ingValue);
-
-                }
-
-                for (int k = 0; k < stepsJSON.length(); k++) {
-
-                    JSONObject stepJSON = (JSONObject) stepsJSON.get(k);
-
-                    ContentValues stepvalue = new ContentValues();
-
-                    String shortDesc = stepJSON.getString(STEP_SHORT_DESC);
-                    String longDesc = stepJSON.getString(STEP_LONG_DESC);
-                    String videoPath = stepJSON.getString(STEP_VIDEO_URL);
-                    String thumbnailPath = stepJSON.getString(STEP_THUMBNAIL);
-
-                    stepvalue.put(StepsTable.RECIPE_ID, key);
-                    stepvalue.put(StepsTable.SHORT_DESC, shortDesc);
-                    stepvalue.put(StepsTable.LONG_DESC, longDesc);
-                    stepvalue.put(StepsTable.VIDEO_PATH, videoPath);
-                    stepvalue.put(StepsTable.THUMBNAIL_PATH, thumbnailPath);
-
-                    stepvalues.add(stepvalue);
-
-                }
+                ingredientValues.add(ingValue);
 
             }
-        } catch (Exception e) {
-            e.printStackTrace();
+
+            for (Step step : recipe.steps) {
+
+                ContentValues stepvalue = new ContentValues();
+
+                stepvalue.put(StepsTable.RECIPE_ID, key);
+                stepvalue.put(StepsTable.SHORT_DESC, step.shortDescription);
+                stepvalue.put(StepsTable.LONG_DESC, step.description);
+                stepvalue.put(StepsTable.VIDEO_PATH, step.videoURL);
+                stepvalue.put(StepsTable.THUMBNAIL_PATH, step.thumbnailURL);
+
+                stepvalues.add(stepvalue);
+
+            }
+
         }
 
         ContentValues[] ingredientsArray = new ContentValues[ingredientValues.size()];
@@ -148,8 +117,90 @@ public class DbUtils {
         contentResolver.bulkInsert(RecipesProvider.Ingredients.INGREDIENTS, ingredientsArray);
         contentResolver.bulkInsert(RecipesProvider.Steps.STEPS, stepsArray);
 
-        return true;
-
     }
+
+//    public static boolean insertReponseIntoDb(Context context, String JSONString) {
+//
+//        ContentResolver contentResolver = context.getContentResolver();
+//
+//        Cursor recipesInDb = contentResolver.query(
+//                RecipesProvider.Recipes.RECIPES,
+//                new String[]{RecipesTable._ID},
+//                null,
+//                null,
+//                null
+//        );
+//
+//        ArrayList<Long> recipeIds = new ArrayList<>();
+//
+//        while (recipesInDb.moveToNext()) {
+//            recipeIds.add(recipesInDb.getLong(recipesInDb.getColumnIndex(RecipesTable._ID)));
+//        }
+//
+//        recipesInDb.close();
+//
+//        Gson gson = new Gson();
+//
+//        ArrayList<Recipe> recipes = gson.fromJson(JSONString, new TypeToken<ArrayList<Recipe>>(){}.getType());
+//
+//        ArrayList<ContentValues> ingredientValues = new ArrayList<>();
+//        ArrayList<ContentValues> stepvalues = new ArrayList<>();
+//
+//        for (Recipe recipe : recipes) {
+//
+//            if (recipeIds.contains(recipe.id)) continue;
+//
+//            ContentValues recipeValue = new ContentValues();
+//
+//            recipeValue.put(RecipesTable._ID, recipe.id);
+//            recipeValue.put(RecipesTable.NAME, recipe.name);
+//            recipeValue.put(RecipesTable.SERVINGS, recipe.servings);
+//            recipeValue.put(RecipesTable.IMAGE_PATH, recipe.image);
+//
+//            Uri uri = contentResolver.insert(RecipesProvider.Recipes.RECIPES, recipeValue);
+//
+//            long key = Long.parseLong(uri.getLastPathSegment());
+//
+//            for (Ingredient ingredient : recipe.ingredients) {
+//
+//                ContentValues ingValue = new ContentValues();
+//
+//                ingValue.put(IngredientsTable.RECIPE_ID, key);
+//                ingValue.put(IngredientsTable.QUANTITY, ingredient.quantity);
+//                ingValue.put(IngredientsTable.MEASURE, ingredient.measure);
+//                ingValue.put(IngredientsTable.INGREDIENT, ingredient.ingredient);
+//
+//                ingredientValues.add(ingValue);
+//
+//            }
+//
+//            for (Step step : recipe.steps) {
+//
+//                ContentValues stepvalue = new ContentValues();
+//
+//                stepvalue.put(StepsTable.RECIPE_ID, key);
+//                stepvalue.put(StepsTable.SHORT_DESC, step.shortDescription);
+//                stepvalue.put(StepsTable.LONG_DESC, step.description);
+//                stepvalue.put(StepsTable.VIDEO_PATH, step.videoURL);
+//                stepvalue.put(StepsTable.THUMBNAIL_PATH, step.thumbnailURL);
+//
+//                stepvalues.add(stepvalue);
+//
+//            }
+//
+//        }
+//
+//        ContentValues[] ingredientsArray = new ContentValues[ingredientValues.size()];
+//        ingredientsArray = ingredientValues.toArray(ingredientsArray);
+//
+//        ContentValues[] stepsArray = new ContentValues[stepvalues.size()];
+//        stepsArray = stepvalues.toArray(stepsArray);
+//
+//        contentResolver.bulkInsert(RecipesProvider.Ingredients.INGREDIENTS, ingredientsArray);
+//        contentResolver.bulkInsert(RecipesProvider.Steps.STEPS, stepsArray);
+//
+//        return true;
+//
+//    }
 
 }

@@ -8,16 +8,23 @@ import java.util.ArrayList;
 
 public class Recipe {
 
-    public RecipeDescription recipeDescription;
+    public long id;
+    public String name;
+//    public RecipeDescription recipeDescription;
     public ArrayList<Ingredient> ingredients;
     public ArrayList<Step> steps;
+    public int servings;
+    public String image;
 
-    public Recipe(RecipeDescription recipeDescription, ArrayList<Ingredient> ingredients, ArrayList<Step> steps) {
+    public Recipe(long id, String name, ArrayList<Ingredient> ingredients, ArrayList<Step> steps, int servings, String image) {
 
-        this.recipeDescription = recipeDescription;
+//        this.recipeDescription = recipeDescription;
+        this.id = id;
+        this.name = name;
         this.ingredients = ingredients;
         this.steps = steps;
-
+        this.servings = servings;
+        this.image = image;
     }
 
 }

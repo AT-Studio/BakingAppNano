@@ -6,13 +6,13 @@ package com.example.alit.bakingappnano.myDatastructures;
 
 public class Ingredient {
 
-    public int quanitiy;
+    public float quantity;
     public String measure;
     public String ingredient;
 
-    public Ingredient(int quanitiy, String measure, String ingredient) {
+    public Ingredient(float quantity, String measure, String ingredient) {
 
-        this.quanitiy = quanitiy;
+        this.quantity = quantity;
         this.measure = measure;
         this.ingredient = ingredient;
 

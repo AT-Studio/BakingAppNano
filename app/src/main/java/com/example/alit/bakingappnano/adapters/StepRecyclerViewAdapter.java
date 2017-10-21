@@ -1,12 +1,17 @@
 package com.example.alit.bakingappnano.adapters;
 
+import android.content.Context;
 import android.support.v7.widget.RecyclerView;
+import android.text.TextUtils;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.example.alit.bakingappnano.R;
+import com.squareup.picasso.Callback;
+import com.squareup.picasso.Picasso;
 
 import java.util.ArrayList;
 
@@ -20,28 +25,55 @@ import butterknife.ButterKnife;
 public class StepRecyclerViewAdapter extends RecyclerView.Adapter<StepRecyclerViewAdapter.StepViewHolder> {
 
     private ArrayList<String> steps;
+    private ArrayList<String> thumbnails;
 
     private StepItemClickListener stepItemClickListener;
 
-    public StepRecyclerViewAdapter(ArrayList<String> steps, StepItemClickListener stepItemClickListener) {
+    private Context context;
+
+    public StepRecyclerViewAdapter(ArrayList<String> steps, ArrayList<String> thumbnails,
+                                   StepItemClickListener stepItemClickListener, Context context) {
 
         this.steps = steps;
+        this.thumbnails = thumbnails;
         this.stepItemClickListener = stepItemClickListener;
+        this.context = context;
 
     }
 
     @Override
     public StepViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
 
-        View itemView = LayoutInflater.from(parent.getContext()).inflate(R.layout.step_adapter_item_layout, parent, false);
+        View itemView = LayoutInflater.from(context).inflate(R.layout.step_adapter_item_layout, parent, false);
 
         return new StepViewHolder(itemView);
     }
 
     @Override
-    public void onBindViewHolder(StepViewHolder holder, int position) {
+    public void onBindViewHolder(final StepViewHolder holder, int position) {
 
         int stepNum = position + 1;
+
+        String thumbnail = thumbnails.get(position);
+
+        if (!TextUtils.isEmpty(thumbnail)) {
+            Picasso.with(context).load(thumbnail)
+                    .into(holder.stepThumbnail, new Callback() {
+                        @Override
+                        public void onSuccess() {
+                            holder.thumbnailError.setVisibility(View.GONE);
+                            holder.stepThumbnail.setVisibility(View.VISIBLE);
+                        }
+
+                        @Override
+                        public void onError() {
+                            holder.stepThumbnail.setVisibility(View.GONE);
+                            holder.thumbnailError.setVisibility(View.VISIBLE);
+                        }
+                    });
+        } else {
+            holder.thumbnailError.setVisibility(View.VISIBLE);
+        }
 
         holder.stepNumber.setText("Step " + stepNum);
         holder.shortDesc.setText(steps.get(position));
@@ -53,8 +85,9 @@ public class StepRecyclerViewAdapter extends RecyclerView.Adapter<StepRecyclerVi
         return steps.size();
     }
 
-    public void update(ArrayList<String> steps) {
+    public void update(ArrayList<String> steps, ArrayList<String> thumbnails) {
         this.steps = steps;
+        this.thumbnails = thumbnails;
         notifyDataSetChanged();
     }
 
@@ -68,6 +101,12 @@ public class StepRecyclerViewAdapter extends RecyclerView.Adapter<StepRecyclerVi
 
         @BindView(R.id.stepNumber)
         TextView stepNumber;
+
+        @BindView(R.id.stepThumbnail)
+        ImageView stepThumbnail;
+
+        @BindView(R.id.thumbnailError)
+        TextView thumbnailError;
 
         @BindView(R.id.shortDesc)
         TextView shortDesc;

@@ -35,6 +35,7 @@
     <string name="master_fragment_ingredient_label">Ingredient</string>
     <string name="master_fragment_quantity_label">Quantity</string>
     <string name="master_fragment_measure_label">Measure</string>
+    <string name="master_fragment_no_thumbnail">No thumbnail</string>
 
     <string name="step_detail_no_video">No Video</string>
     <string name="step_detail_back">Back</string>

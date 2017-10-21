@@ -4,6 +4,7 @@ import android.appwidget.AppWidgetManager;
 import android.content.ComponentName;
 import android.content.Context;
 import android.content.Intent;
+import android.content.res.Resources;
 import android.database.Cursor;
 import android.os.Bundle;
 import android.support.design.widget.FloatingActionButton;
@@ -58,11 +59,11 @@ public class RecipeDetailActivity extends AppCompatActivity implements MasterDet
 
     private ArrayList<Step> steps;
 
-    private int lastStepPos;
+//    private int lastStepPos;
+//
+//    private boolean showLastStep;
 
-    private boolean showLastStep;
-
-    private int containerID;
+//    private int containerID;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -72,7 +73,7 @@ public class RecipeDetailActivity extends AppCompatActivity implements MasterDet
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
 
-        containerID = R.id.stepContainer;
+//        containerID = R.id.stepContainer;
 
         ActionBar actionBar = getSupportActionBar();
         actionBar.setDisplayHomeAsUpEnabled(true);
@@ -83,17 +84,20 @@ public class RecipeDetailActivity extends AppCompatActivity implements MasterDet
 
         Bundle bundle = intent.getExtras();
 
-        if (findViewById(R.id.mainLayout) != null) twoPane = true;
-        if (findViewById(R.id.checkTablet) != null) isTablet = true;
+//        if (findViewById(R.id.mainLayout) != null) twoPane = true;
+        Resources resources = getResources();
+        twoPane = resources.getBoolean(R.bool.isTwoPane);
+        isTablet = resources.getBoolean(R.bool.isTablet);
+//        if (findViewById(R.id.checkTablet) != null) isTablet = true;
 
         if (savedInstanceState != null) {
             recipeID = savedInstanceState.getLong(RecipesTable._ID);
             recipeName = savedInstanceState.getString(RecipesTable.NAME);
-            String lastStep = savedInstanceState.getString(STEP_NUM);
-            if (lastStep != null) {
-                lastStepPos = Integer.parseInt(lastStep);
-                showLastStep = true;
-            }
+//            String lastStep = savedInstanceState.getString(STEP_NUM);
+//            if (lastStep != null) {
+//                lastStepPos = Integer.parseInt(lastStep);
+//                showLastStep = true;
+//            }
         } else if (bundle != null) {
             recipeID = bundle.getLong(RecipesTable._ID);
             recipeName = bundle.getString(RecipesTable.NAME);
@@ -123,17 +127,17 @@ public class RecipeDetailActivity extends AppCompatActivity implements MasterDet
             return;
         }
 
-        lastStepPos = position;
+//        lastStepPos = position;
 
         Step step = steps.get(position);
 
         Bundle bundle = new Bundle();
         bundle.putInt(STEP_NUM, position + 1);
         bundle.putBoolean(IS_LAST_STEP, position == steps.size() - 1);
-        bundle.putString(StepsTable.SHORT_DESC, step.shortDesc);
-        bundle.putString(StepsTable.LONG_DESC, step.longDesc);
-        bundle.putString(StepsTable.VIDEO_PATH, step.videoPath);
-        bundle.putString(StepsTable.THUMBNAIL_PATH, step.thumbnailPath);
+        bundle.putString(StepsTable.SHORT_DESC, step.shortDescription);
+        bundle.putString(StepsTable.LONG_DESC, step.description);
+        bundle.putString(StepsTable.VIDEO_PATH, step.videoURL);
+        bundle.putString(StepsTable.THUMBNAIL_PATH, step.thumbnailURL);
         bundle.putBoolean(EXTRA_IS_TABLET, isTablet);
 
         StepDetailFragment fragment = new StepDetailFragment();
@@ -151,7 +155,7 @@ public class RecipeDetailActivity extends AppCompatActivity implements MasterDet
         if (moveUp) position++;
         else position--;
 
-        lastStepPos = position;
+//        lastStepPos = position;
 
         FragmentTransaction fragmentTransaction = getSupportFragmentManager().beginTransaction();
         if (position >= 0) {
@@ -161,10 +165,10 @@ public class RecipeDetailActivity extends AppCompatActivity implements MasterDet
             Bundle bundle = new Bundle();
             bundle.putInt(STEP_NUM, position + 1);
             bundle.putBoolean(IS_LAST_STEP, position == steps.size() - 1);
-            bundle.putString(StepsTable.SHORT_DESC, step.shortDesc);
-            bundle.putString(StepsTable.LONG_DESC, step.longDesc);
-            bundle.putString(StepsTable.VIDEO_PATH, step.videoPath);
-            bundle.putString(StepsTable.THUMBNAIL_PATH, step.thumbnailPath);
+            bundle.putString(StepsTable.SHORT_DESC, step.shortDescription);
+            bundle.putString(StepsTable.LONG_DESC, step.description);
+            bundle.putString(StepsTable.VIDEO_PATH, step.videoURL);
+            bundle.putString(StepsTable.THUMBNAIL_PATH, step.thumbnailURL);
             bundle.putBoolean(EXTRA_IS_TABLET, isTablet);
 
             StepDetailFragment fragment = new StepDetailFragment();
@@ -215,33 +219,31 @@ public class RecipeDetailActivity extends AppCompatActivity implements MasterDet
 
         }
 
-        data.close();
-
-        if (showLastStep) {
-            showLastStep = false;
-            stepContainer.post(new Runnable() {
-                @Override
-                public void run() {
-                    Step step = steps.get(lastStepPos);
-
-                    Bundle bundle = new Bundle();
-                    bundle.putInt(STEP_NUM, lastStepPos + 1);
-                    bundle.putBoolean(IS_LAST_STEP, lastStepPos == steps.size() - 1);
-                    bundle.putString(StepsTable.SHORT_DESC, step.shortDesc);
-                    bundle.putString(StepsTable.LONG_DESC, step.longDesc);
-                    bundle.putString(StepsTable.VIDEO_PATH, step.videoPath);
-                    bundle.putString(StepsTable.THUMBNAIL_PATH, step.thumbnailPath);
-                    bundle.putBoolean(EXTRA_IS_TABLET, isTablet);
-
-                    StepDetailFragment fragment = new StepDetailFragment();
-                    fragment.setArguments(bundle);
-
-                    FragmentTransaction fragmentTransaction = getSupportFragmentManager().beginTransaction();
-                    fragmentTransaction.replace(R.id.stepContainer, fragment, STEP_FRAGMENT);
-                    fragmentTransaction.commit();
-                }
-            });
-        }
+//        if (showLastStep) {
+//            showLastStep = false;
+//            stepContainer.post(new Runnable() {
+//                @Override
+//                public void run() {
+//                    Step step = steps.get(lastStepPos);
+//
+//                    Bundle bundle = new Bundle();
+//                    bundle.putInt(STEP_NUM, lastStepPos + 1);
+//                    bundle.putBoolean(IS_LAST_STEP, lastStepPos == steps.size() - 1);
+//                    bundle.putString(StepsTable.SHORT_DESC, step.shortDesc);
+//                    bundle.putString(StepsTable.LONG_DESC, step.longDesc);
+//                    bundle.putString(StepsTable.VIDEO_PATH, step.videoPath);
+//                    bundle.putString(StepsTable.THUMBNAIL_PATH, step.thumbnailPath);
+//                    bundle.putBoolean(EXTRA_IS_TABLET, isTablet);
+//
+//                    StepDetailFragment fragment = new StepDetailFragment();
+//                    fragment.setArguments(bundle);
+//
+//                    FragmentTransaction fragmentTransaction = getSupportFragmentManager().beginTransaction();
+//                    fragmentTransaction.replace(R.id.stepContainer, fragment, STEP_FRAGMENT);
+//                    fragmentTransaction.commit();
+//                }
+//            });
+//        }
     }
 
     @Override
@@ -265,10 +267,10 @@ public class RecipeDetailActivity extends AppCompatActivity implements MasterDet
     @Override
     protected void onSaveInstanceState(Bundle outState) {
         super.onSaveInstanceState(outState);
-        Fragment fragment = getSupportFragmentManager().findFragmentByTag(STEP_FRAGMENT);
-        if (fragment != null) {
-            outState.putString(STEP_NUM, Integer.toString(lastStepPos));
-        }
+//        Fragment fragment = getSupportFragmentManager().findFragmentByTag(STEP_FRAGMENT);
+//        if (fragment != null) {
+//            outState.putString(STEP_NUM, Integer.toString(lastStepPos));
+//        }
         outState.putLong(RecipesTable._ID, recipeID);
         outState.putString(RecipesTable.NAME, recipeName);
     }

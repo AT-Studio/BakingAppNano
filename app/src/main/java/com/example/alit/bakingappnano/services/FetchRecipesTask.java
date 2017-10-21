@@ -3,7 +3,6 @@ package com.example.alit.bakingappnano.services;
 import android.content.Context;
 import android.content.Intent;
 
-import com.example.alit.bakingappnano.utils.DbUtils;
 import com.example.alit.bakingappnano.utils.NetworkUtils;
 import com.example.alit.bakingappnano.utils.ServiceUtils;
 
@@ -26,7 +25,7 @@ public class FetchRecipesTask {
         intent.setAction(ServiceUtils.ACTION_RECIPES_FETCHED);
         context.sendBroadcast(intent);
 
-        DbFilled = DbUtils.insertReponseIntoDb(context, reponse);
+//        DbFilled = DbUtils.insertReponseIntoDb(context, reponse);
 
     }
 

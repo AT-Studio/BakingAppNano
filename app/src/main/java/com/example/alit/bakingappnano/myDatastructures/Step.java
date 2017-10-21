@@ -6,17 +6,17 @@ package com.example.alit.bakingappnano.myDatastructures;
 
 public class Step {
 
-    public String shortDesc;
-    public String longDesc;
-    public String videoPath;
-    public String thumbnailPath;
+    public String shortDescription;
+    public String description;
+    public String videoURL;
+    public String thumbnailURL;
 
-    public Step(String shortDesc, String longDesc, String videoPath, String thumbnailPath) {
+    public Step(String shortDescription, String description, String videoURL, String thumbnailURL) {
 
-        this.shortDesc = shortDesc;
-        this.longDesc = longDesc;
-        this.videoPath = videoPath;
-        this.thumbnailPath = thumbnailPath;
+        this.shortDescription = shortDescription;
+        this.description = description;
+        this.videoURL = videoURL;
+        this.thumbnailURL = thumbnailURL;
 
     }
 

@@ -1,16 +1,7 @@
 package com.example.alit.bakingappnano.utils;
 
-import com.example.alit.bakingappnano.myDatastructures.Ingredient;
-import com.example.alit.bakingappnano.myDatastructures.Recipe;
-import com.example.alit.bakingappnano.myDatastructures.RecipeDescription;
-import com.example.alit.bakingappnano.myDatastructures.Step;
-
-import org.json.JSONArray;
-import org.json.JSONObject;
-
 import java.net.HttpURLConnection;
 import java.net.URL;
-import java.util.ArrayList;
 import java.util.Scanner;
 
 /**
@@ -53,63 +44,63 @@ public class NetworkUtils {
         return url;
     }
 
-    public static ArrayList<Recipe> getRecipesFromJSON(String JSONString) {
-
-        ArrayList<Recipe> recipes = new ArrayList<>();
-
-        try {
-            JSONArray recipesJSON = new JSONArray(JSONString);
-
-            for (int i = 0; i < recipesJSON.length(); i++) {
-
-                JSONObject recipeJSON = (JSONObject) recipesJSON.get(i);
-
-                int id = recipeJSON.getInt(RECIPE_ID);
-                String name = recipeJSON.getString(RECIPE_NAME);
-                int servings = recipeJSON.getInt(RECIPE_SERVINGS);
-                String imagePath = recipeJSON.getString(RECIPE_IMAGE);
-
-                JSONArray ingredientsJSON = recipeJSON.getJSONArray(ING_JSON);
-                JSONArray stepsJSON = recipeJSON.getJSONArray(STEPS_JSON);
-
-                ArrayList<Ingredient> ingredients = new ArrayList<>();
-                ArrayList<Step> steps = new ArrayList<>();
-
-                for (int j = 0; j < ingredientsJSON.length(); j++) {
-
-                    JSONObject ingredientJSON = (JSONObject) ingredientsJSON.get(j);
-
-                    int quantity = ingredientJSON.getInt(ING_QUANTITY);
-                    String measure = ingredientJSON.getString(ING_MEASURE);
-                    String ingredient = ingredientJSON.getString(ING_INGREDIENT);
-
-                    ingredients.add(new Ingredient(quantity, measure, ingredient));
-
-                }
-
-                for (int k = 0; k < stepsJSON.length(); k++) {
-
-                    JSONObject stepJSON = (JSONObject) stepsJSON.get(k);
-
-                    String shortDesc = stepJSON.getString(STEP_SHORT_DESC);
-                    String longDesc = stepJSON.getString(STEP_LONG_DESC);
-                    String videoPath = stepJSON.getString(STEP_VIDEO_URL);
-                    String thumbnailPath = stepJSON.getString(STEP_THUMBNAIL);
-
-                    steps.add(new Step(shortDesc, longDesc, videoPath, thumbnailPath));
-
-                }
-
-                recipes.add(new Recipe(new RecipeDescription(0, name, servings, imagePath), ingredients, steps));
-
-            }
-        } catch (Exception e) {
-            e.printStackTrace();
-        }
-
-        return recipes;
-
-    }
+//    public static ArrayList<Recipe> getRecipesFromJSON(String JSONString) {
+//
+//        ArrayList<Recipe> recipes = new ArrayList<>();
+//
+//        try {
+//            JSONArray recipesJSON = new JSONArray(JSONString);
+//
+//            for (int i = 0; i < recipesJSON.length(); i++) {
+//
+//                JSONObject recipeJSON = (JSONObject) recipesJSON.get(i);
+//
+//                int id = recipeJSON.getInt(RECIPE_ID);
+//                String name = recipeJSON.getString(RECIPE_NAME);
+//                int servings = recipeJSON.getInt(RECIPE_SERVINGS);
+//                String imagePath = recipeJSON.getString(RECIPE_IMAGE);
+//
+//                JSONArray ingredientsJSON = recipeJSON.getJSONArray(ING_JSON);
+//                JSONArray stepsJSON = recipeJSON.getJSONArray(STEPS_JSON);
+//
+//                ArrayList<Ingredient> ingredients = new ArrayList<>();
+//                ArrayList<Step> steps = new ArrayList<>();
+//
+//                for (int j = 0; j < ingredientsJSON.length(); j++) {
+//
+//                    JSONObject ingredientJSON = (JSONObject) ingredientsJSON.get(j);
+//
+//                    int quantity = ingredientJSON.getInt(ING_QUANTITY);
+//                    String measure = ingredientJSON.getString(ING_MEASURE);
+//                    String ingredient = ingredientJSON.getString(ING_INGREDIENT);
+//
+//                    ingredients.add(new Ingredient(quantity, measure, ingredient));
+//
+//                }
+//
+//                for (int k = 0; k < stepsJSON.length(); k++) {
+//
+//                    JSONObject stepJSON = (JSONObject) stepsJSON.get(k);
+//
+//                    String shortDesc = stepJSON.getString(STEP_SHORT_DESC);
+//                    String longDesc = stepJSON.getString(STEP_LONG_DESC);
+//                    String videoPath = stepJSON.getString(STEP_VIDEO_URL);
+//                    String thumbnailPath = stepJSON.getString(STEP_THUMBNAIL);
+//
+//                    steps.add(new Step(shortDesc, longDesc, videoPath, thumbnailPath));
+//
+//                }
+//
+//                recipes.add(new Recipe(new RecipeDescription(0, name, servings, imagePath), ingredients, steps));
+//
+//            }
+//        } catch (Exception e) {
+//            e.printStackTrace();
+//        }
+//
+//        return recipes;
+//
+//    }
 
     public static String getRecipes() {
 

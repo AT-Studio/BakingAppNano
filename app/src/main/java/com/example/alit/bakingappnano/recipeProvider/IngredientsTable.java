@@ -7,6 +7,7 @@ import net.simonvt.schematic.annotation.PrimaryKey;
 import net.simonvt.schematic.annotation.References;
 
 import static net.simonvt.schematic.annotation.DataType.Type.INTEGER;
+import static net.simonvt.schematic.annotation.DataType.Type.REAL;
 import static net.simonvt.schematic.annotation.DataType.Type.TEXT;
 
 /**
@@ -25,7 +26,7 @@ public interface IngredientsTable {
     @NotNull
     String RECIPE_ID = "recipeId";
 
-    @DataType(INTEGER)
+    @DataType(REAL)
     @NotNull
     String QUANTITY = "quantity";
 

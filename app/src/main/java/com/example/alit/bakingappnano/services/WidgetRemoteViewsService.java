@@ -107,6 +107,7 @@ public class WidgetRemoteViewsService extends RemoteViewsService {
 
             }
 
+            data.close();
 
         }
 
@@ -171,7 +172,7 @@ public class WidgetRemoteViewsService extends RemoteViewsService {
             RemoteViews view = new RemoteViews(context.getPackageName(), R.layout.widget_ingredient_item_layout);
 
             view.setTextViewText(R.id.nameText, ingredient.ingredient);
-            view.setTextViewText(R.id.quantityText, Integer.toString(ingredient.quanitiy));
+            view.setTextViewText(R.id.quantityText, Float.toString(ingredient.quantity));
             view.setTextViewText(R.id.measureText, ingredient.measure);
 
             boolean checked = isChecked.get(i);

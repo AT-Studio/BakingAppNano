@@ -14,7 +14,7 @@ import net.simonvt.schematic.annotation.Table;
 @Database(version = RecipesDatabase.VERSION)
 public final class RecipesDatabase {
 
-    public static final int VERSION = 2;
+    public static final int VERSION = 3;
 
     @Table(RecipesTable.class)
     public static final String RECIPES = "recipes";

@@ -16,13 +16,33 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         tools:text="Step 1"
+        android:layout_marginBottom="5dp"
         android:textColor="@color/secondary_text"/>
+
+    <ImageView
+        android:id="@+id/stepThumbnail"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="50dp"
+        android:layout_marginRight="50dp"
+        android:visibility="gone"
+        android:src="@drawable/cupcake"/>
+
+    <TextView
+        android:id="@+id/thumbnailError"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/master_fragment_no_thumbnail"
+        android:visibility="gone"
+        android:textColor="@color/divider"
+        android:layout_marginTop="5dp"
+        android:layout_marginBottom="5dp"/>
 
     <TextView
         android:id="@+id/shortDesc"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginTop="10dp"
+        android:layout_marginTop="5dp"
         android:textColor="@color/primary_text"
         tools:text="Press the crust into baking form."/>
 

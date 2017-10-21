@@ -231,7 +231,7 @@ public class MainActivity extends AppCompatActivity
             recipeRecyclerView.setAdapter(adapter);
         } else adapter.notifyDataSetChanged();
 
-        data.close();
+//        data.close();
 
     }
 
