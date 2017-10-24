@@ -41,8 +41,13 @@ public class IngredientRecyclerViewAdapter extends RecyclerView.Adapter<Ingredie
 
         Ingredient ingredient = ingredients.get(position);
 
+        String quantity;
+
+        if (ingredient.quantity == (int) ingredient.quantity) quantity = Integer.toString((int) ingredient.quantity);
+        else quantity = Float.toString(ingredient.quantity);
+
         holder.nameText.setText(ingredient.ingredient);
-        holder.quantityText.setText(Float.toString(ingredient.quantity));
+        holder.quantityText.setText(quantity);
         holder.measureText.setText(ingredient.measure);
 
     }

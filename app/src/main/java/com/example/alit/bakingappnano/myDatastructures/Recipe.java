@@ -10,7 +10,6 @@ public class Recipe {
 
     public long id;
     public String name;
-//    public RecipeDescription recipeDescription;
     public ArrayList<Ingredient> ingredients;
     public ArrayList<Step> steps;
     public int servings;
@@ -18,7 +17,6 @@ public class Recipe {
 
     public Recipe(long id, String name, ArrayList<Ingredient> ingredients, ArrayList<Step> steps, int servings, String image) {
 
-//        this.recipeDescription = recipeDescription;
         this.id = id;
         this.name = name;
         this.ingredients = ingredients;

@@ -11,6 +11,7 @@ import android.os.Handler;
 import android.preference.PreferenceManager;
 import android.support.design.widget.NavigationView;
 import android.support.v4.app.LoaderManager;
+import android.support.v4.content.ContextCompat;
 import android.support.v4.content.CursorLoader;
 import android.support.v4.content.Loader;
 import android.support.v4.view.GravityCompat;
@@ -39,6 +40,8 @@ import com.example.alit.bakingappnano.recipeProvider.RecipesTable;
 import com.example.alit.bakingappnano.services.RecipeService;
 import com.example.alit.bakingappnano.settings.SettingsActivity;
 import com.example.alit.bakingappnano.utils.ServiceUtils;
+import com.mikepenz.google_material_typeface_library.GoogleMaterial;
+import com.mikepenz.iconics.IconicsDrawable;
 
 import java.util.ArrayList;
 import java.util.concurrent.TimeUnit;
@@ -93,6 +96,25 @@ public class MainActivity extends AppCompatActivity
         toggle.syncState();
 
         NavigationView navigationView = (NavigationView) findViewById(R.id.nav_view);
+
+        Menu navMenu = navigationView.getMenu();
+
+        MenuItem settingsItem = navMenu.findItem(R.id.nav_settings);
+        IconicsDrawable settings = new IconicsDrawable(this)
+                .icon(GoogleMaterial.Icon.gmd_settings)
+                .color(ContextCompat.getColor(this, R.color.secondary_text))
+                .sizeDp(24)
+                .paddingDp(2);
+        settingsItem.setIcon(settings);
+
+        MenuItem aboutItem = navMenu.findItem(R.id.nav_about);
+        IconicsDrawable about = new IconicsDrawable(this)
+                .icon(GoogleMaterial.Icon.gmd_import_contacts)
+                .color(ContextCompat.getColor(this, R.color.secondary_text))
+                .sizeDp(24)
+                .paddingDp(2);
+        aboutItem.setIcon(about);
+
         navigationView.setNavigationItemSelectedListener(this);
 
         staggeredGridLayoutManager = new StaggeredGridLayoutManager(getNumColumn(), StaggeredGridLayoutManager.VERTICAL);
@@ -231,8 +253,6 @@ public class MainActivity extends AppCompatActivity
             recipeRecyclerView.setAdapter(adapter);
         } else adapter.notifyDataSetChanged();
 
-//        data.close();
-
     }
 
     @Override
@@ -253,6 +273,7 @@ public class MainActivity extends AppCompatActivity
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
         getMenuInflater().inflate(R.menu.main, menu);
+
         return true;
     }
 

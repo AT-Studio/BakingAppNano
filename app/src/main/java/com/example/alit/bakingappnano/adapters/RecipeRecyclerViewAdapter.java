@@ -1,6 +1,7 @@
 package com.example.alit.bakingappnano.adapters;
 
 import android.content.Context;
+import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.CardView;
 import android.support.v7.widget.RecyclerView;
 import android.util.DisplayMetrics;
@@ -11,11 +12,17 @@ import android.widget.FrameLayout;
 import android.widget.ImageView;
 import android.widget.TextView;
 
+import com.example.alit.bakingappnano.BakingApplication;
 import com.example.alit.bakingappnano.R;
+import com.example.alit.bakingappnano.dagger.application.BakingActivityComponent;
+import com.example.alit.bakingappnano.dagger.application.ContextModule;
+import com.example.alit.bakingappnano.dagger.application.DaggerBakingActivityComponent;
 import com.example.alit.bakingappnano.myDatastructures.RecipeDescription;
 import com.squareup.picasso.Picasso;
 
 import java.util.ArrayList;
+
+import javax.inject.Inject;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
@@ -34,6 +41,9 @@ public class RecipeRecyclerViewAdapter extends RecyclerView.Adapter<RecipeRecycl
 
     private int numColumns;
 
+    @Inject
+    Picasso picasso;
+
     public RecipeRecyclerViewAdapter(ArrayList<RecipeDescription> descriptions, RecipeItemClickListener listener, Context context,
                                      int numColumns) {
 
@@ -43,6 +53,13 @@ public class RecipeRecyclerViewAdapter extends RecyclerView.Adapter<RecipeRecycl
         this.numColumns = numColumns;
 
         this.displayMetrics = context.getResources().getDisplayMetrics();
+
+        BakingActivityComponent component = DaggerBakingActivityComponent.builder()
+                .bakingApplicationComponent(((BakingApplication) ((AppCompatActivity) context).getApplication())
+                        .getApplicationComponent())
+                .contextModule(new ContextModule(context))
+                .build();
+        component.inject(this);
 
     }
 
@@ -72,7 +89,7 @@ public class RecipeRecyclerViewAdapter extends RecyclerView.Adapter<RecipeRecycl
         }
 
         if (imagePath != null && !imagePath.isEmpty()) {
-            Picasso.with(context).load(description.imagePath).into(holder.recipeImage);
+            picasso.load(description.imagePath).into(holder.recipeImage);
             holder.noImageText.setVisibility(View.GONE);
             holder.recipeImage.setVisibility(View.VISIBLE);
         } else {

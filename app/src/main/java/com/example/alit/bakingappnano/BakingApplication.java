@@ -2,6 +2,9 @@ package com.example.alit.bakingappnano;
 
 import android.app.Application;
 
+import com.example.alit.bakingappnano.dagger.activity.BakingApplicationComponent;
+import com.example.alit.bakingappnano.dagger.activity.DaggerBakingApplicationComponent;
+
 import timber.log.Timber;
 
 /**
@@ -10,10 +13,18 @@ import timber.log.Timber;
 
 public class BakingApplication extends Application {
 
+    BakingApplicationComponent applicationComponent;
+
     @Override
     public void onCreate() {
         super.onCreate();
 
         Timber.plant(new Timber.DebugTree());
+
+        applicationComponent = DaggerBakingApplicationComponent.builder().build();
+    }
+
+    public BakingApplicationComponent getApplicationComponent() {
+        return applicationComponent;
     }
 }

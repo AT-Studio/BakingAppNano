@@ -1,5 +1,6 @@
 package com.example.alit.bakingappnano.about;
 
+import android.content.Context;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentTransaction;
@@ -11,6 +12,7 @@ import android.view.View;
 import android.widget.TextView;
 
 import com.example.alit.bakingappnano.R;
+import com.mikepenz.iconics.context.IconicsContextWrapper;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
@@ -44,6 +46,11 @@ public class AboutActivity extends AppCompatActivity {
             }
         });
 
+    }
+
+    @Override
+    protected void attachBaseContext(Context newBase) {
+        super.attachBaseContext(IconicsContextWrapper.wrap(newBase));
     }
 
     @Override

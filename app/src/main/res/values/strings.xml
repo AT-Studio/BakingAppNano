@@ -43,9 +43,29 @@
 
     <string name="widget_name_text">Baking App Widget</string>
 
-    <string name="butter_knife_title">Butter Knife</string>
-    <string name="butter_knife_link">http://jakewharton.github.io/butterknife/</string>
-    <string name="butter_knife_license">Copyright &#169; 2013 Jake Wharton\n\nLicensed under the Apache License, Version 2.0 (the "License");
+    <string name="androidIconics_title">Android-Iconics</string>
+    <string name="androidIconics_link">https://github.com/mikepenz/Android-Iconics</string>
+    <string name="androidIconics_license">Copyright &#169; 2016 Mike Penz\n\nLicensed under the Apache License, Version 2.0 (the "License");
+        you may not use this file except in compliance with the License.
+        You may obtain a copy of the License at\n\n<a href='http://www.apache.org/licenses/LICENSE-2.0'>http://www.apache.org/licenses/LICENSE-2.0</a>\n\nUnless required by applicable law or agreed to in writing, software
+        distributed under the License is distributed on an "AS IS" BASIS,
+        WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+        See the License for the specific language governing permissions and
+        limitations under the License.</string>
+
+    <string name="butterKnife_title">Butter Knife</string>
+    <string name="butterKnife_link">http://jakewharton.github.io/butterknife/</string>
+    <string name="butterKnife_license">Copyright &#169; 2013 Jake Wharton\n\nLicensed under the Apache License, Version 2.0 (the "License");
+        you may not use this file except in compliance with the License.
+        You may obtain a copy of the License at\n\n<a href='http://www.apache.org/licenses/LICENSE-2.0'>http://www.apache.org/licenses/LICENSE-2.0</a>\n\nUnless required by applicable law or agreed to in writing, software
+        distributed under the License is distributed on an "AS IS" BASIS,
+        WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+        See the License for the specific language governing permissions and
+        limitations under the License.</string>
+
+    <string name="dagger_title">Dagger 2</string>
+    <string name="dagger_link">https://github.com/google/dagger</string>
+    <string name="dagger_license">Copyright &#169; 2012 The Dagger Authors\n\nLicensed under the Apache License, Version 2.0 (the "License");
         you may not use this file except in compliance with the License.
         You may obtain a copy of the License at\n\n<a href='http://www.apache.org/licenses/LICENSE-2.0'>http://www.apache.org/licenses/LICENSE-2.0</a>\n\nUnless required by applicable law or agreed to in writing, software
         distributed under the License is distributed on an "AS IS" BASIS,
@@ -55,7 +75,17 @@
 
     <string name="exoPlayer_title">ExoPlayer</string>
     <string name="exoPlayer_link">https://github.com/google/ExoPlayer</string>
-    <string name="exoPlayer_license">Copyright &#169; 2017 Google\n\nLicensed under the Apache License, Version 2.0 (the "License");
+    <string name="exoPlayer_license">Copyright &#169; 2017 Google Inc.\n\nLicensed under the Apache License, Version 2.0 (the "License");
+        you may not use this file except in compliance with the License.
+        You may obtain a copy of the License at\n\n<a href='http://www.apache.org/licenses/LICENSE-2.0'>http://www.apache.org/licenses/LICENSE-2.0</a>\n\nUnless required by applicable law or agreed to in writing, software
+        distributed under the License is distributed on an "AS IS" BASIS,
+        WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+        See the License for the specific language governing permissions and
+        limitations under the License.</string>
+
+    <string name="gson_title">Gson</string>
+    <string name="gson_link">https://github.com/google/gson</string>
+    <string name="gson_license">Copyright &#169; 2008 Google Inc.\n\nLicensed under the Apache License, Version 2.0 (the "License");
         you may not use this file except in compliance with the License.
         You may obtain a copy of the License at\n\n<a href='http://www.apache.org/licenses/LICENSE-2.0'>http://www.apache.org/licenses/LICENSE-2.0</a>\n\nUnless required by applicable law or agreed to in writing, software
         distributed under the License is distributed on an "AS IS" BASIS,
@@ -73,9 +103,39 @@
         See the License for the specific language governing permissions and
         limitations under the License.</string>
 
+    <string name="okttpLoggingIntercepter_title">OkHttp Logging Interceptor</string>
+    <string name="okttpLoggingIntercepter_link">https://github.com/square/okhttp/tree/master/okhttp-logging-interceptor</string>
+    <string name="okttpLoggingIntercepter_license">Copyright &#169; 2017 Square, Inc.\n\nLicensed under the Apache License, Version 2.0 (the "License");
+        you may not use this file except in compliance with the License.
+        You may obtain a copy of the License at\n\n<a href='http://www.apache.org/licenses/LICENSE-2.0'>http://www.apache.org/licenses/LICENSE-2.0</a>\n\nUnless required by applicable law or agreed to in writing, software
+        distributed under the License is distributed on an "AS IS" BASIS,
+        WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+        See the License for the specific language governing permissions and
+        limitations under the License.</string>
+
     <string name="picasso_title">Picasso</string>
     <string name="picasso_link">http://square.github.io/picasso/</string>
     <string name="picasso_license">Copyright &#169; 2013 Square, Inc.\n\nLicensed under the Apache License, Version 2.0 (the "License");
+        you may not use this file except in compliance with the License.
+        You may obtain a copy of the License at\n\n<a href='http://www.apache.org/licenses/LICENSE-2.0'>http://www.apache.org/licenses/LICENSE-2.0</a>\n\nUnless required by applicable law or agreed to in writing, software
+        distributed under the License is distributed on an "AS IS" BASIS,
+        WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+        See the License for the specific language governing permissions and
+        limitations under the License.</string>
+
+    <string name="picassoDownloader_title">Picasso 2 OkHttp 3 Downloader</string>
+    <string name="picassoDownloader_link">https://github.com/JakeWharton/picasso2-okhttp3-downloader</string>
+    <string name="picassoDownloader_license">Copyright &#169; 2016 Jake Wharton\n\nLicensed under the Apache License, Version 2.0 (the "License");
+        you may not use this file except in compliance with the License.
+        You may obtain a copy of the License at\n\n<a href='http://www.apache.org/licenses/LICENSE-2.0'>http://www.apache.org/licenses/LICENSE-2.0</a>\n\nUnless required by applicable law or agreed to in writing, software
+        distributed under the License is distributed on an "AS IS" BASIS,
+        WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+        See the License for the specific language governing permissions and
+        limitations under the License.</string>
+
+    <string name="retrofit_title">Retrofit</string>
+    <string name="retrofit_link">http://square.github.io/retrofit/</string>
+    <string name="retrofit_license">Copyright &#169; 2013 Square, Inc.\n\nLicensed under the Apache License, Version 2.0 (the "License");
         you may not use this file except in compliance with the License.
         You may obtain a copy of the License at\n\n<a href='http://www.apache.org/licenses/LICENSE-2.0'>http://www.apache.org/licenses/LICENSE-2.0</a>\n\nUnless required by applicable law or agreed to in writing, software
         distributed under the License is distributed on an "AS IS" BASIS,

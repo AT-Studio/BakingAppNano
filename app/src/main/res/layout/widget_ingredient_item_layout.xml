@@ -1,6 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     android:id="@+id/widgetItemLayout"
     android:orientation="horizontal"
     android:layout_width="match_parent"
@@ -36,11 +37,10 @@
 
     <ImageView
         android:id="@+id/checkmark"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
+        android:layout_width="16dp"
+        android:layout_height="16dp"
         android:visibility="invisible"
         android:layout_marginLeft="10dp"
-        android:layout_marginStart="10dp"
-        android:src="@drawable/checkmark_24dp"/>
+        android:layout_marginStart="10dp" />
 
 </LinearLayout>

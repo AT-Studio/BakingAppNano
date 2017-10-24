@@ -19,24 +19,37 @@
         android:layout_marginBottom="5dp"
         android:textColor="@color/secondary_text"/>
 
-    <ImageView
-        android:id="@+id/stepThumbnail"
+    <FrameLayout
         android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginLeft="50dp"
-        android:layout_marginRight="50dp"
-        android:visibility="gone"
-        android:src="@drawable/cupcake"/>
+        android:layout_height="wrap_content">
 
-    <TextView
-        android:id="@+id/thumbnailError"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="@string/master_fragment_no_thumbnail"
-        android:visibility="gone"
-        android:textColor="@color/divider"
-        android:layout_marginTop="5dp"
-        android:layout_marginBottom="5dp"/>
+        <TextView
+            android:id="@+id/thumbnailError"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/master_fragment_no_thumbnail"
+            android:visibility="invisible"
+            android:textColor="@color/divider"
+            android:layout_marginTop="5dp"
+            android:layout_marginBottom="5dp"/>
+
+        <ProgressBar
+            android:id="@+id/thumbnailProgressBar"
+            android:layout_width="14dp"
+            android:layout_height="14dp"
+            android:visibility="invisible"
+            android:layout_gravity="center"/>
+
+        <ImageView
+            android:id="@+id/stepThumbnail"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="50dp"
+            android:layout_marginRight="50dp"
+            android:visibility="gone"
+            android:src="@drawable/cupcake"/>
+
+    </FrameLayout>
 
     <TextView
         android:id="@+id/shortDesc"

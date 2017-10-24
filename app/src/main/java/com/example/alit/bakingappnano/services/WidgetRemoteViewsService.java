@@ -6,7 +6,9 @@ import android.content.ContentResolver;
 import android.content.Context;
 import android.content.Intent;
 import android.database.Cursor;
+import android.graphics.Bitmap;
 import android.os.Bundle;
+import android.support.v4.content.ContextCompat;
 import android.view.View;
 import android.widget.RemoteViews;
 import android.widget.RemoteViewsService;
@@ -17,6 +19,8 @@ import com.example.alit.bakingappnano.recipeProvider.IngredientsTable;
 import com.example.alit.bakingappnano.recipeProvider.RecipesProvider;
 import com.example.alit.bakingappnano.recipeProvider.RecipesTable;
 import com.example.alit.bakingappnano.widgets.IngredientsWidget;
+import com.mikepenz.google_material_typeface_library.GoogleMaterial;
+import com.mikepenz.iconics.IconicsDrawable;
 
 import java.util.ArrayList;
 
@@ -70,11 +74,20 @@ public class WidgetRemoteViewsService extends RemoteViewsService {
 
         private boolean dontResetLists;
 
+        Bitmap doneBitmap;
+
         public WidgetRemoteViewsFactory(Context context, long recipeId) {
             this.context = context;
             this.recipeId = recipeId;
             ingredients = new ArrayList<>();
             isChecked = new ArrayList<>();
+
+            IconicsDrawable doneIcon = new IconicsDrawable(context)
+                    .icon(GoogleMaterial.Icon.gmd_done)
+                    .color(ContextCompat.getColor(context, R.color.colorAccent))
+                    .sizeDp(16);
+
+            this.doneBitmap = doneIcon.toBitmap();
         }
 
         public void setRecipeId(long recipeId) {
@@ -98,7 +111,7 @@ public class WidgetRemoteViewsService extends RemoteViewsService {
             while (data.moveToNext()) {
 
                 String ingredient = data.getString(data.getColumnIndex(IngredientsTable.INGREDIENT));
-                int quantity = data.getInt(data.getColumnIndex(IngredientsTable.QUANTITY));
+                float quantity = data.getFloat(data.getColumnIndex(IngredientsTable.QUANTITY));
                 String measure = data.getString(data.getColumnIndex(IngredientsTable.MEASURE));
 
                 ingredients.add(new Ingredient(quantity, measure, ingredient));
@@ -171,14 +184,20 @@ public class WidgetRemoteViewsService extends RemoteViewsService {
 
             RemoteViews view = new RemoteViews(context.getPackageName(), R.layout.widget_ingredient_item_layout);
 
+            String quantity;
+
+            if (ingredient.quantity == (int) ingredient.quantity) quantity = Integer.toString((int) ingredient.quantity);
+            else quantity = Float.toString(ingredient.quantity);
+
             view.setTextViewText(R.id.nameText, ingredient.ingredient);
-            view.setTextViewText(R.id.quantityText, Float.toString(ingredient.quantity));
+            view.setTextViewText(R.id.quantityText, quantity);
             view.setTextViewText(R.id.measureText, ingredient.measure);
 
             boolean checked = isChecked.get(i);
 
             if (checked) {
                 view.setViewVisibility(R.id.checkmark, View.VISIBLE);
+                view.setImageViewBitmap(R.id.checkmark, doneBitmap);
             } else {
                 view.setViewVisibility(R.id.checkmark, View.INVISIBLE);
             }

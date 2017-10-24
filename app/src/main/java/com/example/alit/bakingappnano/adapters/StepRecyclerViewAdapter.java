@@ -1,19 +1,27 @@
 package com.example.alit.bakingappnano.adapters;
 
 import android.content.Context;
+import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.RecyclerView;
 import android.text.TextUtils;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
+import android.widget.ProgressBar;
 import android.widget.TextView;
 
+import com.example.alit.bakingappnano.BakingApplication;
 import com.example.alit.bakingappnano.R;
+import com.example.alit.bakingappnano.dagger.application.BakingActivityComponent;
+import com.example.alit.bakingappnano.dagger.application.ContextModule;
+import com.example.alit.bakingappnano.dagger.application.DaggerBakingActivityComponent;
 import com.squareup.picasso.Callback;
 import com.squareup.picasso.Picasso;
 
 import java.util.ArrayList;
+
+import javax.inject.Inject;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
@@ -31,6 +39,9 @@ public class StepRecyclerViewAdapter extends RecyclerView.Adapter<StepRecyclerVi
 
     private Context context;
 
+    @Inject
+    Picasso picasso;
+
     public StepRecyclerViewAdapter(ArrayList<String> steps, ArrayList<String> thumbnails,
                                    StepItemClickListener stepItemClickListener, Context context) {
 
@@ -38,6 +49,13 @@ public class StepRecyclerViewAdapter extends RecyclerView.Adapter<StepRecyclerVi
         this.thumbnails = thumbnails;
         this.stepItemClickListener = stepItemClickListener;
         this.context = context;
+
+        BakingActivityComponent component = DaggerBakingActivityComponent.builder()
+                .bakingApplicationComponent(((BakingApplication) ((AppCompatActivity) context).getApplication())
+                        .getApplicationComponent())
+                .contextModule(new ContextModule(context))
+                .build();
+        component.inject(this);
 
     }
 
@@ -56,17 +74,22 @@ public class StepRecyclerViewAdapter extends RecyclerView.Adapter<StepRecyclerVi
 
         String thumbnail = thumbnails.get(position);
 
+        holder.stepThumbnail.setVisibility(View.GONE);
+
         if (!TextUtils.isEmpty(thumbnail)) {
-            Picasso.with(context).load(thumbnail)
+            holder.thumbnailProgressBar.setVisibility(View.VISIBLE);
+            picasso.load(thumbnail)
                     .into(holder.stepThumbnail, new Callback() {
                         @Override
                         public void onSuccess() {
-                            holder.thumbnailError.setVisibility(View.GONE);
+                            holder.thumbnailProgressBar.setVisibility(View.INVISIBLE);
+                            holder.thumbnailError.setVisibility(View.INVISIBLE);
                             holder.stepThumbnail.setVisibility(View.VISIBLE);
                         }
 
                         @Override
                         public void onError() {
+                            holder.thumbnailProgressBar.setVisibility(View.INVISIBLE);
                             holder.stepThumbnail.setVisibility(View.GONE);
                             holder.thumbnailError.setVisibility(View.VISIBLE);
                         }
@@ -107,6 +130,9 @@ public class StepRecyclerViewAdapter extends RecyclerView.Adapter<StepRecyclerVi
 
         @BindView(R.id.thumbnailError)
         TextView thumbnailError;
+
+        @BindView(R.id.thumbnailProgressBar)
+        ProgressBar thumbnailProgressBar;
 
         @BindView(R.id.shortDesc)
         TextView shortDesc;

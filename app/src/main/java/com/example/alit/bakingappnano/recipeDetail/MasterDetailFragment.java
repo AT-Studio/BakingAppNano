@@ -70,8 +70,6 @@ public class MasterDetailFragment extends Fragment implements LoaderManager.Load
 
     boolean ingredientsLoaded;
     boolean stepsLoaded;
-    int[] scrollState;
-    boolean hasSavedScrollState;
 
     public MasterDetailFragment() {
     }
@@ -120,37 +118,18 @@ public class MasterDetailFragment extends Fragment implements LoaderManager.Load
         if (savedInstanceState != null) {
             final int[] scrollState = savedInstanceState.getIntArray(SCROLL_VIEW_STATE);
             if (scrollState != null) {
-                this.scrollState = scrollState;
-//                hasSavedScrollState = true;
-
                 masterDetailWrapper.getViewTreeObserver().addOnGlobalLayoutListener(new ViewTreeObserver.OnGlobalLayoutListener() {
                     @Override
                     public void onGlobalLayout() {
 
-//                        Timber.d("triggered globallayoutlistener: " + masterDetailWrapper.getHeight());
-
                         if (stepsLoaded && ingredientsLoaded) {
                             masterDetailWrapper.getViewTreeObserver().removeOnGlobalLayoutListener(this);
-//                            Timber.d("restoring scroll state: " + scrollState[1]);
-//                            Timber.d("scrollView height: " + nestedScrollView.getHeight());
-//                            Timber.d("wrapper height: " + masterDetailWrapper.getHeight());
-//                                hasSavedScrollState = false;
                             nestedScrollView.scrollTo(scrollState[0], scrollState[1]);
                         }
 
                     }
                 });
             }
-//            Timber.d("scrollstate found x: " + scrollState[0]);
-//            Timber.d("scrollstate found y: " + scrollState[1]);
-//            nestedScrollView.post(new Runnable() {
-//                @Override
-//                public void run() {
-////                    nestedScrollView.scrollTo(scrollState[0], scrollState[1]);
-//                    nestedScrollView.setScrollY(scrollState[0]);
-//                    nestedScrollView.setScrollY(scrollState[1]);
-//                }
-//            });
         }
 
         recipeID = clickListener.getRecipeId();
@@ -205,7 +184,7 @@ public class MasterDetailFragment extends Fragment implements LoaderManager.Load
             while (data.moveToNext()) {
 
                 String ingredient = data.getString(data.getColumnIndex(IngredientsTable.INGREDIENT));
-                int quantity = data.getInt(data.getColumnIndex(IngredientsTable.QUANTITY));
+                float quantity = data.getFloat(data.getColumnIndex(IngredientsTable.QUANTITY));
                 String measure = data.getString(data.getColumnIndex(IngredientsTable.MEASURE));
 
                 ingredients.add(new Ingredient(quantity, measure, ingredient));
@@ -250,9 +229,7 @@ public class MasterDetailFragment extends Fragment implements LoaderManager.Load
     @Override
     public void onSaveInstanceState(Bundle outState) {
         super.onSaveInstanceState(outState);
-//        Timber.d("scrollstate x: " + nestedScrollView.getScrollX());
-//        Timber.d("scrollstate y: " + nestedScrollView.getScrollY());
-        outState.putIntArray(SCROLL_VIEW_STATE, new int[] {nestedScrollView.getScrollX(), nestedScrollView.getScrollY()});
+        outState.putIntArray(SCROLL_VIEW_STATE, new int[]{nestedScrollView.getScrollX(), nestedScrollView.getScrollY()});
     }
 
     @Override

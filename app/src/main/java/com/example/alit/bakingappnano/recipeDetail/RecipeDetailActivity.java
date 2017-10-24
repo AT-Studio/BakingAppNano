@@ -27,6 +27,7 @@ import com.example.alit.bakingappnano.recipeProvider.RecipesProvider;
 import com.example.alit.bakingappnano.recipeProvider.RecipesTable;
 import com.example.alit.bakingappnano.recipeProvider.StepsTable;
 import com.example.alit.bakingappnano.widgets.IngredientsWidget;
+import com.mikepenz.iconics.context.IconicsContextWrapper;
 
 import java.util.ArrayList;
 
@@ -59,12 +60,6 @@ public class RecipeDetailActivity extends AppCompatActivity implements MasterDet
 
     private ArrayList<Step> steps;
 
-//    private int lastStepPos;
-//
-//    private boolean showLastStep;
-
-//    private int containerID;
-
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -72,8 +67,6 @@ public class RecipeDetailActivity extends AppCompatActivity implements MasterDet
         setContentView(R.layout.activity_recipe_detail);
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
-
-//        containerID = R.id.stepContainer;
 
         ActionBar actionBar = getSupportActionBar();
         actionBar.setDisplayHomeAsUpEnabled(true);
@@ -84,20 +77,13 @@ public class RecipeDetailActivity extends AppCompatActivity implements MasterDet
 
         Bundle bundle = intent.getExtras();
 
-//        if (findViewById(R.id.mainLayout) != null) twoPane = true;
         Resources resources = getResources();
         twoPane = resources.getBoolean(R.bool.isTwoPane);
         isTablet = resources.getBoolean(R.bool.isTablet);
-//        if (findViewById(R.id.checkTablet) != null) isTablet = true;
 
         if (savedInstanceState != null) {
             recipeID = savedInstanceState.getLong(RecipesTable._ID);
             recipeName = savedInstanceState.getString(RecipesTable.NAME);
-//            String lastStep = savedInstanceState.getString(STEP_NUM);
-//            if (lastStep != null) {
-//                lastStepPos = Integer.parseInt(lastStep);
-//                showLastStep = true;
-//            }
         } else if (bundle != null) {
             recipeID = bundle.getLong(RecipesTable._ID);
             recipeName = bundle.getString(RecipesTable.NAME);
@@ -121,13 +107,16 @@ public class RecipeDetailActivity extends AppCompatActivity implements MasterDet
     }
 
     @Override
+    protected void attachBaseContext(Context newBase) {
+        super.attachBaseContext(IconicsContextWrapper.wrap(newBase));
+    }
+
+    @Override
     public void masterDetailClicked(int position) {
 
         if (steps == null) {
             return;
         }
-
-//        lastStepPos = position;
 
         Step step = steps.get(position);
 
@@ -154,8 +143,6 @@ public class RecipeDetailActivity extends AppCompatActivity implements MasterDet
 
         if (moveUp) position++;
         else position--;
-
-//        lastStepPos = position;
 
         FragmentTransaction fragmentTransaction = getSupportFragmentManager().beginTransaction();
         if (position >= 0) {
@@ -218,32 +205,6 @@ public class RecipeDetailActivity extends AppCompatActivity implements MasterDet
             steps.add(new Step(shortDesc, longDesc, videoPath, thumbnailPath));
 
         }
-
-//        if (showLastStep) {
-//            showLastStep = false;
-//            stepContainer.post(new Runnable() {
-//                @Override
-//                public void run() {
-//                    Step step = steps.get(lastStepPos);
-//
-//                    Bundle bundle = new Bundle();
-//                    bundle.putInt(STEP_NUM, lastStepPos + 1);
-//                    bundle.putBoolean(IS_LAST_STEP, lastStepPos == steps.size() - 1);
-//                    bundle.putString(StepsTable.SHORT_DESC, step.shortDesc);
-//                    bundle.putString(StepsTable.LONG_DESC, step.longDesc);
-//                    bundle.putString(StepsTable.VIDEO_PATH, step.videoPath);
-//                    bundle.putString(StepsTable.THUMBNAIL_PATH, step.thumbnailPath);
-//                    bundle.putBoolean(EXTRA_IS_TABLET, isTablet);
-//
-//                    StepDetailFragment fragment = new StepDetailFragment();
-//                    fragment.setArguments(bundle);
-//
-//                    FragmentTransaction fragmentTransaction = getSupportFragmentManager().beginTransaction();
-//                    fragmentTransaction.replace(R.id.stepContainer, fragment, STEP_FRAGMENT);
-//                    fragmentTransaction.commit();
-//                }
-//            });
-//        }
     }
 
     @Override
@@ -267,10 +228,6 @@ public class RecipeDetailActivity extends AppCompatActivity implements MasterDet
     @Override
     protected void onSaveInstanceState(Bundle outState) {
         super.onSaveInstanceState(outState);
-//        Fragment fragment = getSupportFragmentManager().findFragmentByTag(STEP_FRAGMENT);
-//        if (fragment != null) {
-//            outState.putString(STEP_NUM, Integer.toString(lastStepPos));
-//        }
         outState.putLong(RecipesTable._ID, recipeID);
         outState.putString(RecipesTable.NAME, recipeName);
     }

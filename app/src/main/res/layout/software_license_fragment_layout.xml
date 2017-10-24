@@ -2,6 +2,7 @@
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
+    tools:ignore="MissingPrefix"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="?android:colorBackground"
@@ -9,13 +10,16 @@
 
     <ImageView
         android:id="@+id/closeFragment"
-        android:layout_width="30dp"
-        android:layout_height="30dp"
-        android:src="@drawable/close_icon_24dp"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
         android:layout_marginBottom="13dp"
         android:layout_marginLeft="15dp"
+        android:padding="5dp"
         android:background="?attr/selectableItemBackgroundBorderless"
-        android:layout_marginTop="13dp" />
+        android:layout_marginTop="13dp"
+        app:ico_icon="@string/gmd_close"
+        app:ico_color="@color/secondary_text"
+        app:ico_size="20dp" />
 
     <ScrollView
         android:layout_width="match_parent"
@@ -28,6 +32,62 @@
             android:orientation="vertical">
 
             <android.support.constraint.ConstraintLayout
+                android:id="@+id/androidIconicsWrapper"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content">
+
+                <TextView
+                    android:id="@+id/androidIconicsTitle"
+                    style="@style/licenseTitle"
+                    android:text="@string/androidIconics_title"
+                    app:layout_constraintTop_toTopOf="parent"
+                    app:layout_constraintLeft_toLeftOf="parent"
+                    app:layout_constraintRight_toLeftOf="@+id/androidIconicsDownArrow" />
+
+                <TextView
+                    android:id="@+id/androidIconicsLink"
+                    style="@style/licenseLink"
+                    android:text="@string/androidIconics_link"
+                    app:layout_constraintTop_toBottomOf="@id/androidIconicsTitle"
+                    app:layout_constraintLeft_toLeftOf="parent"
+                    app:layout_constraintRight_toLeftOf="@+id/androidIconicsDownArrow" />
+
+                <ImageView
+                    android:id="@+id/androidIconicsDownArrow"
+                    style="@style/licenseArrow"
+                    android:visibility="invisible"
+                    app:layout_constraintTop_toTopOf="@+id/androidIconicsTitle"
+                    app:layout_constraintBottom_toBottomOf="@+id/androidIconicsLink"
+                    app:layout_constraintRight_toRightOf="parent"
+                    app:ico_icon="@string/gmd_keyboard_arrow_down"
+                    app:ico_color="@color/secondary_text"
+                    app:ico_size="12dp"/>
+
+                <ImageView
+                    android:id="@+id/androidIconicsUpArrow"
+                    style="@style/licenseArrow"
+                    android:visibility="visible"
+                    app:layout_constraintTop_toTopOf="@+id/androidIconicsTitle"
+                    app:layout_constraintBottom_toBottomOf="@+id/androidIconicsLink"
+                    app:layout_constraintRight_toRightOf="parent"
+                    app:ico_icon="@string/gmd_keyboard_arrow_up"
+                    app:ico_color="@color/secondary_text"
+                    app:ico_size="12dp"/>
+
+                <TextView
+                    android:id="@+id/androidIconicsLicense"
+                    style="@style/licenseLicense"
+                    android:text="@string/androidIconics_license"
+                    app:layout_constraintTop_toBottomOf="@id/androidIconicsLink"
+                    app:layout_constraintRight_toRightOf="parent"
+                    app:layout_constraintLeft_toLeftOf="parent" />
+
+            </android.support.constraint.ConstraintLayout>
+
+            <View
+                style="@style/licenseDivider"/>
+
+            <android.support.constraint.ConstraintLayout
                 android:id="@+id/butterKnifeWrapper"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content">
@@ -35,7 +95,7 @@
                 <TextView
                     android:id="@+id/butterKnifeTitle"
                     style="@style/licenseTitle"
-                    android:text="@string/butter_knife_title"
+                    android:text="@string/butterKnife_title"
                     app:layout_constraintTop_toTopOf="parent"
                     app:layout_constraintLeft_toLeftOf="parent"
                     app:layout_constraintRight_toLeftOf="@+id/butterKnifeDownArrow" />
@@ -43,7 +103,7 @@
                 <TextView
                     android:id="@+id/butterKnifeLink"
                     style="@style/licenseLink"
-                    android:text="@string/butter_knife_link"
+                    android:text="@string/butterKnife_link"
                     app:layout_constraintTop_toBottomOf="@id/butterKnifeTitle"
                     app:layout_constraintLeft_toLeftOf="parent"
                     app:layout_constraintRight_toLeftOf="@+id/butterKnifeDownArrow" />
@@ -51,26 +111,86 @@
                 <ImageView
                     android:id="@+id/butterKnifeDownArrow"
                     style="@style/licenseArrow"
-                    android:src="@drawable/down_arrow_24dp"
                     android:visibility="invisible"
                     app:layout_constraintTop_toTopOf="@+id/butterKnifeTitle"
                     app:layout_constraintBottom_toBottomOf="@+id/butterKnifeLink"
-                    app:layout_constraintRight_toRightOf="parent" />
+                    app:layout_constraintRight_toRightOf="parent"
+                    app:ico_icon="@string/gmd_keyboard_arrow_down"
+                    app:ico_color="@color/secondary_text"
+                    app:ico_size="12dp"/>
 
                 <ImageView
                     android:id="@+id/butterKnifeUpArrow"
                     style="@style/licenseArrow"
-                    android:src="@drawable/up_arrow_24dp"
                     android:visibility="visible"
                     app:layout_constraintTop_toTopOf="@+id/butterKnifeTitle"
                     app:layout_constraintBottom_toBottomOf="@+id/butterKnifeLink"
-                    app:layout_constraintRight_toRightOf="parent" />
+                    app:layout_constraintRight_toRightOf="parent"
+                    app:ico_icon="@string/gmd_keyboard_arrow_up"
+                    app:ico_color="@color/secondary_text"
+                    app:ico_size="12dp"/>
                 
                 <TextView
                     android:id="@+id/butterKnifeLicense"
                     style="@style/licenseLicense"
-                    android:text="@string/butter_knife_license"
+                    android:text="@string/butterKnife_license"
                     app:layout_constraintTop_toBottomOf="@id/butterKnifeLink"
+                    app:layout_constraintRight_toRightOf="parent"
+                    app:layout_constraintLeft_toLeftOf="parent" />
+
+            </android.support.constraint.ConstraintLayout>
+
+            <View
+                style="@style/licenseDivider"/>
+
+            <android.support.constraint.ConstraintLayout
+                android:id="@+id/daggerWrapper"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content">
+
+                <TextView
+                    android:id="@+id/daggerTitle"
+                    style="@style/licenseTitle"
+                    android:text="@string/dagger_title"
+                    app:layout_constraintTop_toTopOf="parent"
+                    app:layout_constraintLeft_toLeftOf="parent"
+                    app:layout_constraintRight_toLeftOf="@+id/daggerDownArrow" />
+
+                <TextView
+                    android:id="@+id/daggerLink"
+                    style="@style/licenseLink"
+                    android:text="@string/dagger_link"
+                    app:layout_constraintTop_toBottomOf="@id/daggerTitle"
+                    app:layout_constraintLeft_toLeftOf="parent"
+                    app:layout_constraintRight_toLeftOf="@+id/daggerDownArrow" />
+
+                <ImageView
+                    android:id="@+id/daggerDownArrow"
+                    style="@style/licenseArrow"
+                    android:visibility="invisible"
+                    app:layout_constraintTop_toTopOf="@+id/daggerTitle"
+                    app:layout_constraintBottom_toBottomOf="@+id/daggerLink"
+                    app:layout_constraintRight_toRightOf="parent"
+                    app:ico_icon="@string/gmd_keyboard_arrow_down"
+                    app:ico_color="@color/secondary_text"
+                    app:ico_size="12dp"/>
+
+                <ImageView
+                    android:id="@+id/daggerUpArrow"
+                    style="@style/licenseArrow"
+                    android:visibility="visible"
+                    app:layout_constraintTop_toTopOf="@+id/daggerTitle"
+                    app:layout_constraintBottom_toBottomOf="@+id/daggerLink"
+                    app:layout_constraintRight_toRightOf="parent"
+                    app:ico_icon="@string/gmd_keyboard_arrow_up"
+                    app:ico_color="@color/secondary_text"
+                    app:ico_size="12dp"/>
+
+                <TextView
+                    android:id="@+id/daggerLicense"
+                    style="@style/licenseLicense"
+                    android:text="@string/dagger_license"
+                    app:layout_constraintTop_toBottomOf="@id/daggerLink"
                     app:layout_constraintRight_toRightOf="parent"
                     app:layout_constraintLeft_toLeftOf="parent" />
 
@@ -103,26 +223,86 @@
                 <ImageView
                     android:id="@+id/exoPlayerDownArrow"
                     style="@style/licenseArrow"
-                    android:src="@drawable/down_arrow_24dp"
                     android:visibility="invisible"
                     app:layout_constraintTop_toTopOf="@+id/exoPlayerTitle"
                     app:layout_constraintBottom_toBottomOf="@+id/exoPlayerLink"
-                    app:layout_constraintRight_toRightOf="parent" />
+                    app:layout_constraintRight_toRightOf="parent"
+                    app:ico_icon="@string/gmd_keyboard_arrow_down"
+                    app:ico_color="@color/secondary_text"
+                    app:ico_size="12dp"/>
 
                 <ImageView
                     android:id="@+id/exoPlayerUpArrow"
                     style="@style/licenseArrow"
-                    android:src="@drawable/up_arrow_24dp"
                     android:visibility="visible"
                     app:layout_constraintTop_toTopOf="@+id/exoPlayerTitle"
                     app:layout_constraintBottom_toBottomOf="@+id/exoPlayerLink"
-                    app:layout_constraintRight_toRightOf="parent" />
+                    app:layout_constraintRight_toRightOf="parent"
+                    app:ico_icon="@string/gmd_keyboard_arrow_up"
+                    app:ico_color="@color/secondary_text"
+                    app:ico_size="12dp"/>
 
                 <TextView
                     android:id="@+id/exoPlayerLicense"
                     style="@style/licenseLicense"
                     android:text="@string/exoPlayer_license"
                     app:layout_constraintTop_toBottomOf="@id/exoPlayerLink"
+                    app:layout_constraintRight_toRightOf="parent"
+                    app:layout_constraintLeft_toLeftOf="parent" />
+
+            </android.support.constraint.ConstraintLayout>
+
+            <View
+                style="@style/licenseDivider"/>
+
+            <android.support.constraint.ConstraintLayout
+                android:id="@+id/gsonWrapper"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content">
+
+                <TextView
+                    android:id="@+id/gsonTitle"
+                    style="@style/licenseTitle"
+                    android:text="@string/gson_title"
+                    app:layout_constraintTop_toTopOf="parent"
+                    app:layout_constraintLeft_toLeftOf="parent"
+                    app:layout_constraintRight_toLeftOf="@+id/gsonDownArrow" />
+
+                <TextView
+                    android:id="@+id/gsonLink"
+                    style="@style/licenseLink"
+                    android:text="@string/gson_link"
+                    app:layout_constraintTop_toBottomOf="@id/gsonTitle"
+                    app:layout_constraintLeft_toLeftOf="parent"
+                    app:layout_constraintRight_toLeftOf="@+id/gsonDownArrow" />
+
+                <ImageView
+                    android:id="@+id/gsonDownArrow"
+                    style="@style/licenseArrow"
+                    android:visibility="invisible"
+                    app:layout_constraintTop_toTopOf="@+id/gsonTitle"
+                    app:layout_constraintBottom_toBottomOf="@+id/gsonLink"
+                    app:layout_constraintRight_toRightOf="parent"
+                    app:ico_icon="@string/gmd_keyboard_arrow_down"
+                    app:ico_color="@color/secondary_text"
+                    app:ico_size="12dp"/>
+
+                <ImageView
+                    android:id="@+id/gsonUpArrow"
+                    style="@style/licenseArrow"
+                    android:visibility="visible"
+                    app:layout_constraintTop_toTopOf="@+id/gsonTitle"
+                    app:layout_constraintBottom_toBottomOf="@+id/gsonLink"
+                    app:layout_constraintRight_toRightOf="parent"
+                    app:ico_icon="@string/gmd_keyboard_arrow_up"
+                    app:ico_color="@color/secondary_text"
+                    app:ico_size="12dp"/>
+
+                <TextView
+                    android:id="@+id/gsonLicense"
+                    style="@style/licenseLicense"
+                    android:text="@string/gson_license"
+                    app:layout_constraintTop_toBottomOf="@id/gsonLink"
                     app:layout_constraintRight_toRightOf="parent"
                     app:layout_constraintLeft_toLeftOf="parent" />
 
@@ -155,26 +335,86 @@
                 <ImageView
                     android:id="@+id/jobDispatcherDownArrow"
                     style="@style/licenseArrow"
-                    android:src="@drawable/down_arrow_24dp"
                     android:visibility="invisible"
                     app:layout_constraintTop_toTopOf="@+id/jobDispatcherTitle"
                     app:layout_constraintBottom_toBottomOf="@+id/jobDispatcherLink"
-                    app:layout_constraintRight_toRightOf="parent" />
+                    app:layout_constraintRight_toRightOf="parent"
+                    app:ico_icon="@string/gmd_keyboard_arrow_down"
+                    app:ico_color="@color/secondary_text"
+                    app:ico_size="12dp"/>
 
                 <ImageView
                     android:id="@+id/jobDispatcherUpArrow"
                     style="@style/licenseArrow"
-                    android:src="@drawable/up_arrow_24dp"
                     android:visibility="visible"
                     app:layout_constraintTop_toTopOf="@+id/jobDispatcherTitle"
                     app:layout_constraintBottom_toBottomOf="@+id/jobDispatcherLink"
-                    app:layout_constraintRight_toRightOf="parent" />
+                    app:layout_constraintRight_toRightOf="parent"
+                    app:ico_icon="@string/gmd_keyboard_arrow_up"
+                    app:ico_color="@color/secondary_text"
+                    app:ico_size="12dp"/>
 
                 <TextView
                     android:id="@+id/jobDispatcherLicense"
                     style="@style/licenseLicense"
                     android:text="@string/jobDispatcher_license"
                     app:layout_constraintTop_toBottomOf="@id/jobDispatcherLink"
+                    app:layout_constraintRight_toRightOf="parent"
+                    app:layout_constraintLeft_toLeftOf="parent" />
+
+            </android.support.constraint.ConstraintLayout>
+
+            <View
+                style="@style/licenseDivider"/>
+
+            <android.support.constraint.ConstraintLayout
+                android:id="@+id/okttpLoggingIntercepterWrapper"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content">
+
+                <TextView
+                    android:id="@+id/okttpLoggingIntercepterTitle"
+                    style="@style/licenseTitle"
+                    android:text="@string/okttpLoggingIntercepter_title"
+                    app:layout_constraintTop_toTopOf="parent"
+                    app:layout_constraintLeft_toLeftOf="parent"
+                    app:layout_constraintRight_toLeftOf="@+id/okttpLoggingIntercepterDownArrow" />
+
+                <TextView
+                    android:id="@+id/okttpLoggingIntercepterLink"
+                    style="@style/licenseLink"
+                    android:text="@string/okttpLoggingIntercepter_link"
+                    app:layout_constraintTop_toBottomOf="@id/okttpLoggingIntercepterTitle"
+                    app:layout_constraintLeft_toLeftOf="parent"
+                    app:layout_constraintRight_toLeftOf="@+id/okttpLoggingIntercepterDownArrow" />
+
+                <ImageView
+                    android:id="@+id/okttpLoggingIntercepterDownArrow"
+                    style="@style/licenseArrow"
+                    android:visibility="invisible"
+                    app:layout_constraintTop_toTopOf="@+id/okttpLoggingIntercepterTitle"
+                    app:layout_constraintBottom_toBottomOf="@+id/okttpLoggingIntercepterLink"
+                    app:layout_constraintRight_toRightOf="parent"
+                    app:ico_icon="@string/gmd_keyboard_arrow_down"
+                    app:ico_color="@color/secondary_text"
+                    app:ico_size="12dp"/>
+
+                <ImageView
+                    android:id="@+id/okttpLoggingIntercepterUpArrow"
+                    style="@style/licenseArrow"
+                    android:visibility="visible"
+                    app:layout_constraintTop_toTopOf="@+id/okttpLoggingIntercepterTitle"
+                    app:layout_constraintBottom_toBottomOf="@+id/okttpLoggingIntercepterLink"
+                    app:layout_constraintRight_toRightOf="parent"
+                    app:ico_icon="@string/gmd_keyboard_arrow_up"
+                    app:ico_color="@color/secondary_text"
+                    app:ico_size="12dp"/>
+
+                <TextView
+                    android:id="@+id/okttpLoggingIntercepterLicense"
+                    style="@style/licenseLicense"
+                    android:text="@string/okttpLoggingIntercepter_license"
+                    app:layout_constraintTop_toBottomOf="@id/okttpLoggingIntercepterLink"
                     app:layout_constraintRight_toRightOf="parent"
                     app:layout_constraintLeft_toLeftOf="parent" />
 
@@ -207,26 +447,142 @@
                 <ImageView
                     android:id="@+id/picassoDownArrow"
                     style="@style/licenseArrow"
-                    android:src="@drawable/down_arrow_24dp"
                     android:visibility="invisible"
                     app:layout_constraintTop_toTopOf="@+id/picassoTitle"
                     app:layout_constraintBottom_toBottomOf="@+id/picassoLink"
-                    app:layout_constraintRight_toRightOf="parent" />
+                    app:layout_constraintRight_toRightOf="parent"
+                    app:ico_icon="@string/gmd_keyboard_arrow_down"
+                    app:ico_color="@color/secondary_text"
+                    app:ico_size="12dp"/>
 
                 <ImageView
                     android:id="@+id/picassoUpArrow"
                     style="@style/licenseArrow"
-                    android:src="@drawable/up_arrow_24dp"
                     android:visibility="visible"
                     app:layout_constraintTop_toTopOf="@+id/picassoTitle"
                     app:layout_constraintBottom_toBottomOf="@+id/picassoLink"
-                    app:layout_constraintRight_toRightOf="parent" />
+                    app:layout_constraintRight_toRightOf="parent"
+                    app:ico_icon="@string/gmd_keyboard_arrow_up"
+                    app:ico_color="@color/secondary_text"
+                    app:ico_size="12dp"/>
 
                 <TextView
                     android:id="@+id/picassoLicense"
                     style="@style/licenseLicense"
                     android:text="@string/picasso_license"
                     app:layout_constraintTop_toBottomOf="@id/picassoLink"
+                    app:layout_constraintRight_toRightOf="parent"
+                    app:layout_constraintLeft_toLeftOf="parent" />
+
+            </android.support.constraint.ConstraintLayout>
+
+            <View
+                style="@style/licenseDivider"/>
+
+            <android.support.constraint.ConstraintLayout
+                android:id="@+id/picassoDownloaderWrapper"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content">
+
+                <TextView
+                    android:id="@+id/picassoDownloaderTitle"
+                    style="@style/licenseTitle"
+                    android:text="@string/picassoDownloader_title"
+                    app:layout_constraintTop_toTopOf="parent"
+                    app:layout_constraintLeft_toLeftOf="parent"
+                    app:layout_constraintRight_toLeftOf="@+id/picassoDownloaderDownArrow" />
+
+                <TextView
+                    android:id="@+id/picassoDownloaderLink"
+                    style="@style/licenseLink"
+                    android:text="@string/picassoDownloader_link"
+                    app:layout_constraintTop_toBottomOf="@id/picassoDownloaderTitle"
+                    app:layout_constraintLeft_toLeftOf="parent"
+                    app:layout_constraintRight_toLeftOf="@+id/picassoDownloaderDownArrow" />
+
+                <ImageView
+                    android:id="@+id/picassoDownloaderDownArrow"
+                    style="@style/licenseArrow"
+                    android:visibility="invisible"
+                    app:layout_constraintTop_toTopOf="@+id/picassoDownloaderTitle"
+                    app:layout_constraintBottom_toBottomOf="@+id/picassoDownloaderLink"
+                    app:layout_constraintRight_toRightOf="parent"
+                    app:ico_icon="@string/gmd_keyboard_arrow_down"
+                    app:ico_color="@color/secondary_text"
+                    app:ico_size="12dp"/>
+
+                <ImageView
+                    android:id="@+id/picassoDownloaderUpArrow"
+                    style="@style/licenseArrow"
+                    android:visibility="visible"
+                    app:layout_constraintTop_toTopOf="@+id/picassoDownloaderTitle"
+                    app:layout_constraintBottom_toBottomOf="@+id/picassoDownloaderLink"
+                    app:layout_constraintRight_toRightOf="parent"
+                    app:ico_icon="@string/gmd_keyboard_arrow_up"
+                    app:ico_color="@color/secondary_text"
+                    app:ico_size="12dp"/>
+
+                <TextView
+                    android:id="@+id/picassoDownloaderLicense"
+                    style="@style/licenseLicense"
+                    android:text="@string/picassoDownloader_license"
+                    app:layout_constraintTop_toBottomOf="@id/picassoDownloaderLink"
+                    app:layout_constraintRight_toRightOf="parent"
+                    app:layout_constraintLeft_toLeftOf="parent" />
+
+            </android.support.constraint.ConstraintLayout>
+
+            <View
+                style="@style/licenseDivider"/>
+
+            <android.support.constraint.ConstraintLayout
+                android:id="@+id/retrofitWrapper"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content">
+
+                <TextView
+                    android:id="@+id/retrofitTitle"
+                    style="@style/licenseTitle"
+                    android:text="@string/retrofit_title"
+                    app:layout_constraintTop_toTopOf="parent"
+                    app:layout_constraintLeft_toLeftOf="parent"
+                    app:layout_constraintRight_toLeftOf="@+id/retrofitDownArrow" />
+
+                <TextView
+                    android:id="@+id/retrofitLink"
+                    style="@style/licenseLink"
+                    android:text="@string/retrofit_link"
+                    app:layout_constraintTop_toBottomOf="@id/retrofitTitle"
+                    app:layout_constraintLeft_toLeftOf="parent"
+                    app:layout_constraintRight_toLeftOf="@+id/retrofitDownArrow" />
+
+                <ImageView
+                    android:id="@+id/retrofitDownArrow"
+                    style="@style/licenseArrow"
+                    android:visibility="invisible"
+                    app:layout_constraintTop_toTopOf="@+id/retrofitTitle"
+                    app:layout_constraintBottom_toBottomOf="@+id/retrofitLink"
+                    app:layout_constraintRight_toRightOf="parent"
+                    app:ico_icon="@string/gmd_keyboard_arrow_down"
+                    app:ico_color="@color/secondary_text"
+                    app:ico_size="12dp"/>
+
+                <ImageView
+                    android:id="@+id/retrofitUpArrow"
+                    style="@style/licenseArrow"
+                    android:visibility="visible"
+                    app:layout_constraintTop_toTopOf="@+id/retrofitTitle"
+                    app:layout_constraintBottom_toBottomOf="@+id/retrofitLink"
+                    app:layout_constraintRight_toRightOf="parent"
+                    app:ico_icon="@string/gmd_keyboard_arrow_up"
+                    app:ico_color="@color/secondary_text"
+                    app:ico_size="12dp"/>
+
+                <TextView
+                    android:id="@+id/retrofitLicense"
+                    style="@style/licenseLicense"
+                    android:text="@string/retrofit_license"
+                    app:layout_constraintTop_toBottomOf="@id/retrofitLink"
                     app:layout_constraintRight_toRightOf="parent"
                     app:layout_constraintLeft_toLeftOf="parent" />
 
@@ -259,20 +615,24 @@
                 <ImageView
                     android:id="@+id/schematicDownArrow"
                     style="@style/licenseArrow"
-                    android:src="@drawable/down_arrow_24dp"
                     android:visibility="invisible"
                     app:layout_constraintTop_toTopOf="@+id/schematicTitle"
                     app:layout_constraintBottom_toBottomOf="@+id/schematicLink"
-                    app:layout_constraintRight_toRightOf="parent" />
+                    app:layout_constraintRight_toRightOf="parent"
+                    app:ico_icon="@string/gmd_keyboard_arrow_down"
+                    app:ico_color="@color/secondary_text"
+                    app:ico_size="12dp"/>
 
                 <ImageView
                     android:id="@+id/schematicUpArrow"
                     style="@style/licenseArrow"
-                    android:src="@drawable/up_arrow_24dp"
                     android:visibility="visible"
                     app:layout_constraintTop_toTopOf="@+id/schematicTitle"
                     app:layout_constraintBottom_toBottomOf="@+id/schematicLink"
-                    app:layout_constraintRight_toRightOf="parent" />
+                    app:layout_constraintRight_toRightOf="parent"
+                    app:ico_icon="@string/gmd_keyboard_arrow_up"
+                    app:ico_color="@color/secondary_text"
+                    app:ico_size="12dp"/>
 
                 <TextView
                     android:id="@+id/schematicLicense"
@@ -311,20 +671,24 @@
                 <ImageView
                     android:id="@+id/timberDownArrow"
                     style="@style/licenseArrow"
-                    android:src="@drawable/down_arrow_24dp"
                     android:visibility="invisible"
                     app:layout_constraintTop_toTopOf="@+id/timberTitle"
                     app:layout_constraintBottom_toBottomOf="@+id/timberLink"
-                    app:layout_constraintRight_toRightOf="parent" />
+                    app:layout_constraintRight_toRightOf="parent"
+                    app:ico_icon="@string/gmd_keyboard_arrow_down"
+                    app:ico_color="@color/secondary_text"
+                    app:ico_size="12dp"/>
 
                 <ImageView
                     android:id="@+id/timberUpArrow"
                     style="@style/licenseArrow"
-                    android:src="@drawable/up_arrow_24dp"
                     android:visibility="visible"
                     app:layout_constraintTop_toTopOf="@+id/timberTitle"
                     app:layout_constraintBottom_toBottomOf="@+id/timberLink"
-                    app:layout_constraintRight_toRightOf="parent" />
+                    app:layout_constraintRight_toRightOf="parent"
+                    app:ico_icon="@string/gmd_keyboard_arrow_up"
+                    app:ico_color="@color/secondary_text"
+                    app:ico_size="12dp"/>
 
                 <TextView
                     android:id="@+id/timberLicense"

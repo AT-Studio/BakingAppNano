@@ -4,6 +4,9 @@ import android.app.IntentService;
 import android.content.Intent;
 import android.support.annotation.Nullable;
 
+import com.example.alit.bakingappnano.BakingApplication;
+import com.example.alit.bakingappnano.dagger.service.BakingServiceComponent;
+import com.example.alit.bakingappnano.dagger.service.DaggerBakingServiceComponent;
 import com.example.alit.bakingappnano.myDatastructures.Recipe;
 import com.example.alit.bakingappnano.utils.BakingRecipeService;
 import com.example.alit.bakingappnano.utils.DbUtils;
@@ -11,11 +14,11 @@ import com.example.alit.bakingappnano.utils.ServiceUtils;
 
 import java.util.List;
 
+import javax.inject.Inject;
+
 import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
-import retrofit2.Retrofit;
-import retrofit2.converter.gson.GsonConverterFactory;
 
 /**
  * Created by AliT on 10/9/17.
@@ -23,20 +26,25 @@ import retrofit2.converter.gson.GsonConverterFactory;
 
 public class RecipeService extends IntentService {
 
+    @Inject
+    BakingRecipeService service;
+
     public RecipeService() {
         super("RecipeService");
     }
 
     @Override
+    public void onCreate() {
+        super.onCreate();
+        BakingServiceComponent component = DaggerBakingServiceComponent.builder()
+                .bakingApplicationComponent(((BakingApplication) getApplication()).getApplicationComponent())
+                .build();
+        component.inject(this);
+    }
+
+    @Override
     protected void onHandleIntent(@Nullable Intent intent) {
 
-        Retrofit.Builder builder = new Retrofit.Builder()
-                .baseUrl("https://d17h27t6h515a5.cloudfront.net")
-                .addConverterFactory(GsonConverterFactory.create());
-
-        Retrofit retrofit = builder.build();
-
-        BakingRecipeService service = retrofit.create(BakingRecipeService.class);
         Call<List<Recipe>> call = service.getRecipes();
 
         call.enqueue(new Callback<List<Recipe>>() {
@@ -56,8 +64,6 @@ public class RecipeService extends IntentService {
 
             }
         });
-
-//        FetchRecipesTask.execute(this);
 
     }
 

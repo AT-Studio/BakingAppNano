@@ -24,8 +24,10 @@
             android:layout_height="wrap_content"
             android:layout_gravity="bottom|end"
             android:layout_margin="18dp"
-            android:src="@drawable/widget_list_icon_24dp"
-            app:backgroundTint="@color/colorAccent"/>
+            app:backgroundTint="@color/colorAccent"
+            app:ico_icon="@string/gmd_content_copy"
+            app:ico_color="@color/icons"
+            app:ico_size="24dp"/>
 
     </FrameLayout>
 

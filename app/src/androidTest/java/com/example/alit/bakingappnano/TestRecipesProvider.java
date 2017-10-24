@@ -1,27 +1,20 @@
 package com.example.alit.bakingappnano;
 
 import android.content.ContentResolver;
-import android.content.ContentValues;
 import android.content.Context;
 import android.content.Intent;
 import android.database.Cursor;
-import android.net.Uri;
 import android.support.test.InstrumentationRegistry;
 import android.support.test.rule.ServiceTestRule;
 import android.support.test.runner.AndroidJUnit4;
 import android.util.Log;
 
-import com.example.alit.bakingappnano.myDatastructures.Ingredient;
-import com.example.alit.bakingappnano.myDatastructures.Recipe;
-import com.example.alit.bakingappnano.myDatastructures.Step;
 import com.example.alit.bakingappnano.recipeProvider.IngredientsTable;
 import com.example.alit.bakingappnano.recipeProvider.RecipesDatabase;
 import com.example.alit.bakingappnano.recipeProvider.RecipesProvider;
 import com.example.alit.bakingappnano.recipeProvider.RecipesTable;
 import com.example.alit.bakingappnano.recipeProvider.StepsTable;
-import com.example.alit.bakingappnano.services.FetchRecipesTask;
 import com.example.alit.bakingappnano.services.RecipeService;
-import com.example.alit.bakingappnano.utils.NetworkUtils;
 import com.example.alit.bakingappnano.utils.ServiceUtils;
 
 import org.junit.Before;
@@ -29,7 +22,6 @@ import org.junit.Rule;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 
-import java.util.ArrayList;
 import java.util.concurrent.TimeoutException;
 
 /**
@@ -51,8 +43,6 @@ public class TestRecipesProvider {
     @Before
     public void setUp() {
 
-        FetchRecipesTask.DbFilled = false;
-
         RecipesDatabase recipesDatabase = new RecipesDatabase();
 
         ContentResolver contentResolver = context.getContentResolver();
@@ -67,76 +57,76 @@ public class TestRecipesProvider {
 
     }
 
-    @Test
-    public void testInsertAndQuery() {
-
-//        ContentValues[] recipeValues = new ContentValues[];
-        ArrayList<ContentValues> ingredientValues = new ArrayList<>();
-        ArrayList<ContentValues> stepvalues = new ArrayList<>();
-
-        ContentResolver contentResolver = context.getContentResolver();
-
-        ArrayList<Recipe> recipes = NetworkUtils.getRecipesFromJSON(JSON_COPY);
-
-        for (Recipe recipe : recipes) {
-
-            ContentValues recipeValue = new ContentValues();
-
-            recipeValue.put(RecipesTable.NAME, recipe.recipeDescription.name);
-            recipeValue.put(RecipesTable.SERVINGS, recipe.recipeDescription.servings);
-            recipeValue.put(RecipesTable.IMAGE_PATH, recipe.recipeDescription.imagePath);
-
-            Uri uri = contentResolver.insert(RecipesProvider.Recipes.RECIPES, recipeValue);
-
-            long key = Long.parseLong(uri.getLastPathSegment());
-
-            for (Ingredient ingredient : recipe.ingredients) {
-
-//                stringBuilder.append("- " + ingredient.ingredient);
-
-                ContentValues ingValue = new ContentValues();
-
-                ingValue.put(IngredientsTable.RECIPE_ID, key);
-                ingValue.put(IngredientsTable.QUANTITY, ingredient.quanitiy);
-                ingValue.put(IngredientsTable.MEASURE, ingredient.measure);
-                ingValue.put(IngredientsTable.INGREDIENT, ingredient.ingredient);
-
-                ingredientValues.add(ingValue);
-
-            }
-
-//            stringBuilder.append("\nSteps: ");
-
-            for (Step step : recipe.steps) {
-
-//                stringBuilder.append("- " + step.shortDesc);
-
-                ContentValues stepvalue = new ContentValues();
-
-                stepvalue.put(StepsTable.RECIPE_ID, key);
-                stepvalue.put(StepsTable.SHORT_DESC, step.shortDesc);
-                stepvalue.put(StepsTable.LONG_DESC, step.longDesc);
-                stepvalue.put(StepsTable.VIDEO_PATH, step.videoPath);
-                stepvalue.put(StepsTable.THUMBNAIL_PATH, step.thumbnailPath);
-
-                stepvalues.add(stepvalue);
-
-            }
-
-        }
-
-        ContentValues[] ingredientsArray = new ContentValues[ingredientValues.size()];
-        ingredientsArray = ingredientValues.toArray(ingredientsArray);
-
-        ContentValues[] stepsArray = new ContentValues[stepvalues.size()];
-        stepsArray = stepvalues.toArray(stepsArray);
-
-        contentResolver.bulkInsert(RecipesProvider.Ingredients.INGREDIENTS, ingredientsArray);
-        contentResolver.bulkInsert(RecipesProvider.Steps.STEPS, stepsArray);
-
-        queryAll();
-
-    }
+//    @Test
+//    public void testInsertAndQuery() {
+//
+////        ContentValues[] recipeValues = new ContentValues[];
+//        ArrayList<ContentValues> ingredientValues = new ArrayList<>();
+//        ArrayList<ContentValues> stepvalues = new ArrayList<>();
+//
+//        ContentResolver contentResolver = context.getContentResolver();
+//
+//        ArrayList<Recipe> recipes = NetworkUtils.getRecipesFromJSON(JSON_COPY);
+//
+//        for (Recipe recipe : recipes) {
+//
+//            ContentValues recipeValue = new ContentValues();
+//
+//            recipeValue.put(RecipesTable.NAME, recipe.recipeDescription.name);
+//            recipeValue.put(RecipesTable.SERVINGS, recipe.recipeDescription.servings);
+//            recipeValue.put(RecipesTable.IMAGE_PATH, recipe.recipeDescription.imagePath);
+//
+//            Uri uri = contentResolver.insert(RecipesProvider.Recipes.RECIPES, recipeValue);
+//
+//            long key = Long.parseLong(uri.getLastPathSegment());
+//
+//            for (Ingredient ingredient : recipe.ingredients) {
+//
+////                stringBuilder.append("- " + ingredient.ingredient);
+//
+//                ContentValues ingValue = new ContentValues();
+//
+//                ingValue.put(IngredientsTable.RECIPE_ID, key);
+//                ingValue.put(IngredientsTable.QUANTITY, ingredient.quanitiy);
+//                ingValue.put(IngredientsTable.MEASURE, ingredient.measure);
+//                ingValue.put(IngredientsTable.INGREDIENT, ingredient.ingredient);
+//
+//                ingredientValues.add(ingValue);
+//
+//            }
+//
+////            stringBuilder.append("\nSteps: ");
+//
+//            for (Step step : recipe.steps) {
+//
+////                stringBuilder.append("- " + step.shortDesc);
+//
+//                ContentValues stepvalue = new ContentValues();
+//
+//                stepvalue.put(StepsTable.RECIPE_ID, key);
+//                stepvalue.put(StepsTable.SHORT_DESC, step.shortDesc);
+//                stepvalue.put(StepsTable.LONG_DESC, step.longDesc);
+//                stepvalue.put(StepsTable.VIDEO_PATH, step.videoPath);
+//                stepvalue.put(StepsTable.THUMBNAIL_PATH, step.thumbnailPath);
+//
+//                stepvalues.add(stepvalue);
+//
+//            }
+//
+//        }
+//
+//        ContentValues[] ingredientsArray = new ContentValues[ingredientValues.size()];
+//        ingredientsArray = ingredientValues.toArray(ingredientsArray);
+//
+//        ContentValues[] stepsArray = new ContentValues[stepvalues.size()];
+//        stepsArray = stepvalues.toArray(stepsArray);
+//
+//        contentResolver.bulkInsert(RecipesProvider.Ingredients.INGREDIENTS, ingredientsArray);
+//        contentResolver.bulkInsert(RecipesProvider.Steps.STEPS, stepsArray);
+//
+//        queryAll();
+//
+//    }
 
     public void queryAll() {
 
@@ -216,37 +206,37 @@ public class TestRecipesProvider {
 
     }
 
-    @Test
-    public void testGrabData() {
-
-        ArrayList<Recipe> recipes = NetworkUtils.getRecipesFromJSON(JSON_COPY);
-
-        for (Recipe recipe : recipes) {
-
-            StringBuilder stringBuilder = new StringBuilder();
-
-            stringBuilder.append("Recipe: " + recipe.recipeDescription.name);
-            stringBuilder.append("\nIngredients: ");
-
-            for (Ingredient ingredient : recipe.ingredients) {
-
-                stringBuilder.append("- " + ingredient.ingredient);
-
-            }
-
-            stringBuilder.append("\nSteps: ");
-
-            for (Step step : recipe.steps) {
-
-                stringBuilder.append("- " + step.shortDesc);
-
-            }
-
-            Log.d(TAG, stringBuilder.toString());
-
-        }
-
-    }
+//    @Test
+//    public void testGrabData() {
+//
+//        ArrayList<Recipe> recipes = NetworkUtils.getRecipesFromJSON(JSON_COPY);
+//
+//        for (Recipe recipe : recipes) {
+//
+//            StringBuilder stringBuilder = new StringBuilder();
+//
+//            stringBuilder.append("Recipe: " + recipe.recipeDescription.name);
+//            stringBuilder.append("\nIngredients: ");
+//
+//            for (Ingredient ingredient : recipe.ingredients) {
+//
+//                stringBuilder.append("- " + ingredient.ingredient);
+//
+//            }
+//
+//            stringBuilder.append("\nSteps: ");
+//
+//            for (Step step : recipe.steps) {
+//
+//                stringBuilder.append("- " + step.shortDesc);
+//
+//            }
+//
+//            Log.d(TAG, stringBuilder.toString());
+//
+//        }
+//
+//    }
 
     @Test
     public void testService() throws TimeoutException {

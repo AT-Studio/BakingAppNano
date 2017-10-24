@@ -35,6 +35,15 @@ public class SoftwareLicenseFragment extends Fragment {
     @BindView(R.id.closeFragment)
     ImageView closeFragment;
 
+    @BindView(R.id.androidIconicsWrapper)
+    ConstraintLayout androidIconicsWrapper;
+    @BindView(R.id.androidIconicsLicense)
+    TextView androidIconicsLicense;
+    @BindView(R.id.androidIconicsDownArrow)
+    ImageView androidIconicsDownArrow;
+    @BindView(R.id.androidIconicsUpArrow)
+    ImageView androidIconicsUpArrow;
+
     @BindView(R.id.butterKnifeWrapper)
     ConstraintLayout butterKnifeWrapper;
     @BindView(R.id.butterKnifeLicense)
@@ -43,6 +52,24 @@ public class SoftwareLicenseFragment extends Fragment {
     ImageView butterKnifeDownArrow;
     @BindView(R.id.butterKnifeUpArrow)
     ImageView butterKnifeUpArrow;
+
+    @BindView(R.id.daggerWrapper)
+    ConstraintLayout daggerWrapper;
+    @BindView(R.id.daggerLicense)
+    TextView daggerLicense;
+    @BindView(R.id.daggerDownArrow)
+    ImageView daggerDownArrow;
+    @BindView(R.id.daggerUpArrow)
+    ImageView daggerUpArrow;
+
+    @BindView(R.id.gsonWrapper)
+    ConstraintLayout gsonWrapper;
+    @BindView(R.id.gsonLicense)
+    TextView gsonLicense;
+    @BindView(R.id.gsonDownArrow)
+    ImageView gsonDownArrow;
+    @BindView(R.id.gsonUpArrow)
+    ImageView gsonUpArrow;
 
     @BindView(R.id.exoPlayerWrapper)
     ConstraintLayout exoPlayerWrapper;
@@ -62,6 +89,15 @@ public class SoftwareLicenseFragment extends Fragment {
     @BindView(R.id.jobDispatcherUpArrow)
     ImageView jobDispatcherUpArrow;
 
+    @BindView(R.id.okttpLoggingIntercepterWrapper)
+    ConstraintLayout okttpLoggingIntercepterWrapper;
+    @BindView(R.id.okttpLoggingIntercepterLicense)
+    TextView okttpLoggingIntercepterLicense;
+    @BindView(R.id.okttpLoggingIntercepterDownArrow)
+    ImageView okttpLoggingIntercepterDownArrow;
+    @BindView(R.id.okttpLoggingIntercepterUpArrow)
+    ImageView okttpLoggingIntercepterUpArrow;
+
     @BindView(R.id.picassoWrapper)
     ConstraintLayout picassoWrapper;
     @BindView(R.id.picassoLicense)
@@ -70,6 +106,24 @@ public class SoftwareLicenseFragment extends Fragment {
     ImageView picassoDownArrow;
     @BindView(R.id.picassoUpArrow)
     ImageView picassoUpArrow;
+
+    @BindView(R.id.picassoDownloaderWrapper)
+    ConstraintLayout picassoDownloaderWrapper;
+    @BindView(R.id.picassoDownloaderLicense)
+    TextView picassoDownloaderLicense;
+    @BindView(R.id.picassoDownloaderDownArrow)
+    ImageView picassoDownloaderDownArrow;
+    @BindView(R.id.picassoDownloaderUpArrow)
+    ImageView picassoDownloaderUpArrow;
+
+    @BindView(R.id.retrofitWrapper)
+    ConstraintLayout retrofitWrapper;
+    @BindView(R.id.retrofitLicense)
+    TextView retrofitLicense;
+    @BindView(R.id.retrofitDownArrow)
+    ImageView retrofitDownArrow;
+    @BindView(R.id.retrofitUpArrow)
+    ImageView retrofitUpArrow;
 
     @BindView(R.id.schematicWrapper)
     ConstraintLayout schematicWrapper;
@@ -125,17 +179,29 @@ public class SoftwareLicenseFragment extends Fragment {
 
         heightsMap = new HashMap<>();
 
+        setViewTreeObserver(androidIconicsLicense);
         setViewTreeObserver(butterKnifeLicense);
+        setViewTreeObserver(daggerLicense);
         setViewTreeObserver(exoPlayerLicense);
+        setViewTreeObserver(gsonLicense);
         setViewTreeObserver(jobDispatcherLicense);
+        setViewTreeObserver(okttpLoggingIntercepterLicense);
         setViewTreeObserver(picassoLicense);
+        setViewTreeObserver(picassoDownloaderLicense);
+        setViewTreeObserver(retrofitLicense);
         setViewTreeObserver(schematicLicense);
         setViewTreeObserver(timberLicense);
 
+        setLicenseClickListener(androidIconicsWrapper, androidIconicsUpArrow, androidIconicsDownArrow, androidIconicsLicense);
         setLicenseClickListener(butterKnifeWrapper, butterKnifeUpArrow, butterKnifeDownArrow, butterKnifeLicense);
+        setLicenseClickListener(daggerWrapper, daggerUpArrow, daggerDownArrow, daggerLicense);
         setLicenseClickListener(exoPlayerWrapper, exoPlayerUpArrow, exoPlayerDownArrow, exoPlayerLicense);
+        setLicenseClickListener(gsonWrapper, gsonUpArrow, gsonDownArrow, gsonLicense);
         setLicenseClickListener(jobDispatcherWrapper, jobDispatcherUpArrow, jobDispatcherDownArrow, jobDispatcherLicense);
+        setLicenseClickListener(okttpLoggingIntercepterWrapper, okttpLoggingIntercepterUpArrow, okttpLoggingIntercepterDownArrow, okttpLoggingIntercepterLicense);
         setLicenseClickListener(picassoWrapper, picassoUpArrow, picassoDownArrow, picassoLicense);
+        setLicenseClickListener(picassoDownloaderWrapper, picassoDownloaderUpArrow, picassoDownloaderDownArrow, picassoDownloaderLicense);
+        setLicenseClickListener(retrofitWrapper, retrofitUpArrow, retrofitDownArrow, retrofitLicense);
         setLicenseClickListener(schematicWrapper, schematicUpArrow, schematicDownArrow, schematicLicense);
         setLicenseClickListener(timberWrapper, timberUpArrow, timberDownArrow, timberLicense);
 
